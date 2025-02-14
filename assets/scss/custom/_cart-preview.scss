@@ -1,0 +1,176 @@
+.previewCartWrapper {
+    position: fixed;
+    top: 6rem; // Changed from 0 to 6rem
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: #fff;
+    padding: 1.5rem;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-top: 2px solid #fb8500; // Added border to visually separate from header
+
+    .close-preview {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #333a40;
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            width: 1rem;
+            height: 2px;
+            background: #333a40;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+        }
+
+        &:hover {
+            border-color: #fb8500;
+            background: #fb8500;
+            
+            &::before,
+            &::after {
+                background: #fff;
+            }
+        }
+    }
+
+    .previewCartList {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        .previewCartItem {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(51, 58, 64, 0.1);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &-image {
+                width: 80px;
+                flex-shrink: 0;
+
+                img {
+                    border-radius: 4px;
+                }
+            }
+
+            &-content {
+                flex: 1;
+                min-width: 0;
+            }
+
+            &-brand {
+                display: block;
+                color: #fb8500;
+                font-size: 0.9rem;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+
+            &-name {
+                margin: 0.25rem 0;
+                font-size: 1rem;
+                
+                a {
+                    color: #333a40;
+                    text-decoration: none;
+                    
+                    &:hover {
+                        color: #fb8500;
+                    }
+                }
+            }
+
+            &-price {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #333a40;
+
+                .price--discounted {
+                    text-decoration: line-through;
+                    color: #666;
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+
+    .previewCartAction {
+        margin-top: 1rem;
+        display: flex;
+        gap: 0.5rem;
+
+        .button {
+            flex: 1;
+            margin: 0;
+            text-align: center;
+            font-weight: 700;
+            
+            &--primary {
+                background: #fb8500;
+                border-color: #fb8500;
+                
+                &:hover {
+                    background: #333a40;
+                    border-color: #333a40;
+                }
+            }
+
+            &--action {
+                background: transparent;
+                border: 2px solid #333a40;
+                color: #333a40;
+                
+                &:hover {
+                    background: #333a40;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .previewCart-emptyBody {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: #333a40;
+        font-size: 1.1rem;
+    }
+}
+
+// Animation classes
+.previewCart-entering {
+    transform: translateX(100%);
+}
+
+.previewCart-entered {
+    transform: translateX(0);
+}
+
+.previewCart-exiting {
+    transform: translateX(100%);
+}

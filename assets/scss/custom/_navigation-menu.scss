@@ -1,0 +1,427 @@
+.navPages {
+    background: #fff;
+    padding: 0;
+    height: 100%; // Adjusted to account for header and bottom menu
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+    position: relative;
+
+    // Optional: Hide scrollbar but keep functionality
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    button.navPages-tab.home-icon {
+        display: block;
+        margin: 0.25rem;
+        padding: 0;
+
+    }
+    .navPages-tabs {
+        display: flex;
+        justify-content: space-between;
+        border-top: #333a40 solid 2px;
+        border-bottom: 2px solid #333a40;
+        background: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+
+        .navPages-tab {
+            flex: 1;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            font-weight: bold;
+            color: #333a40;
+            position: relative;
+            cursor: pointer;
+
+        
+
+            svg {
+            width: 1rem;
+            height: 1rem;
+            }
+            &.active {
+                color: #fb8500;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -2px;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: #fb8500;
+                }
+            }
+        }
+    }
+
+    .navPages-content {
+        display: none;
+        padding: 0.75rem;
+
+        .navPages-list,
+        .navPages-list--user,
+        .navPage-subMenu-list {
+            // Remove any default display:none
+            display: block;
+        }
+        .navPages-list{
+            .navPages-item {
+                border-top: solid 1px #cccccc;
+            
+            a{
+                padding: 0.3rem 0;
+                font-size: 1rem;
+            }}
+        }
+        &.active {
+            display: block;
+            height: auto; // Change from 100% to auto
+            overflow-y: visible; // Allow content to scroll naturally
+        }
+
+        // Remove the !important flags and nested selectors
+        &#shopTab {
+            &.active {
+                display: block;
+            }
+        }
+    }
+
+    // Desktop vs Mobile display logic
+    @media (max-width: 768px) {
+        height: calc(100vh - 180px); // Even more space for mobile
+        padding-bottom: 80px; // Increased padding for mobile
+    }
+
+    @media (min-width: 769px) {
+        .navPages-tabs {
+            display: none; // Hide tabs on desktop
+        }
+        .nav-banner{display: none;}
+        .navPages-content {
+            display: block; // Show all content on desktop
+        }
+
+        .navPages-list {
+            display: block;
+        }
+    }
+    .new-arrivals{
+        background: rgb(251,133,0);
+        background: linear-gradient(90deg, 
+            rgba(251,133,0,1) 0%, 
+            rgba(251,133,0,0.9) 50%, 
+            rgba(251,133,0,0.8) 100%);
+            .banner-content {
+                color: #333a40;
+            }
+            .button {
+                background-color: #333a40;
+                color: #fff;
+                border: #333a40;}
+    }
+    .by-brand{
+        background: rgb(251,133,0);
+        background: linear-gradient(90deg, 
+            rgba(251,133,0,1) 0%, 
+            rgba(251,133,0,0.9) 50%, 
+            rgba(251,133,0,0.8) 100%);
+            .banner-content {
+                color: #333a40;
+            }
+            .button {
+                background-color: #333a40;
+                color: #fff;
+                border: #333a40;
+                a {
+                    color: #fff;
+                }
+            }
+
+    }
+    .nav-sale{
+        background: rgb(251, 46, 0);
+        background: linear-gradient(90deg, 
+            rgba(251,46,0,1) 0%, 
+            rgba(251,46,0,0.9) 50%, 
+            rgba(251,46,0,0.8) 100%);
+            .banner-content {
+                color: #ffffff;
+                h2{
+                    color: #ffffff;
+                }
+            }
+            .button.button--primary {
+                background-color: #333a40;
+                color: #fff;
+                border: rgb(51, 58, 64);}
+    }
+    .shop-all{
+        background: rgb(51, 58, 64);
+        background: linear-gradient(90deg, 
+            rgba(51, 58, 64,1) 0%, 
+            rgba(51, 58, 64,0.9) 50%, 
+            rgba(51, 58, 64,0.8) 100%);
+            .banner-content {
+                color: #ffffff;
+                h2{
+                    color: #ffffff;
+                }
+            }
+            .button.button--primary {
+                background-color: #fb8500;
+                color: #fff;
+                border: #fb8500;}
+    }
+    .nav-banner {
+        
+        border-radius: 0;
+        margin: -0.25rem -1rem 0.25rem -1rem; // Negative margin to reach edges
+        padding: 0.5rem 0.75rem;
+        a{text-decoration: none;}
+        .banner-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .text-content {
+                text-align: left;
+                text-decoration: none;
+
+                h2 {
+                    font-size: 1.4rem;
+                    margin: 0;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-weight: 900;
+                }
+
+                p {
+                    font-size: 0.9rem;
+                    font-weight: 700;
+                    margin: 0rem 0 0;
+                    opacity: 0.9;
+                    font-family: stencilFontFamily("body-font"); // Changed from hardcoded Helvetica
+                }
+            }
+
+            .button {
+                font-family: stencilFontFamily("headings-font"); // Changed from hardcoded Merriweather
+                font-weight: 700;
+                font-size: 1.1rem;
+                line-height: 1;
+                padding: 0.25rem;
+                width: 6.5rem; // Increased from 3.5rem
+                height: 2.6rem;
+                transition: all 0.15s ease;
+                margin: 0;
+                align-content: center;
+
+                span {
+                    display: block;
+                    text-align: center;
+                    
+                    &:first-child {
+                        margin-bottom: 0.2rem;
+                    }
+                }
+
+                &:hover {
+                    background-color: #444a50;
+                    border-color: #444a50;
+                    transform: translateY(-1px);
+                }
+            }
+        }
+    }
+    .nav-sale.nav-banner{
+        margin-top:0.25rem;
+        margin-bottom: 0.5rem;
+    }
+    .navPages-button-wrapper {
+        display: flex;
+        align-items: stretch;
+        border-top: #333a40 solid 2px;
+        border-bottom: 2px solid #333a40;
+        background: #fff;
+
+        .home-icon {
+            padding: 0 0.75rem;
+            background: none;
+            border: none;
+            color: #333a40;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-right: 1px solid #e5e5e5;
+
+            svg {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+
+            &:hover {
+                color: #fb8500;
+            }
+        }
+
+        .navPages-tabs {
+            flex: 1;
+            border: none;
+            // Remove the existing border styles since they're now on the wrapper
+            border-top: none;
+            border-bottom: none;
+        }
+    }
+
+    #brandsTab {
+        height: auto; // Change from 100% to auto
+        overflow-y: visible; // Let parent handle scrolling
+        .brands-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+                  }
+                  .brand-items{
+                    margin-bottom: 0;
+                  }
+            .brands-alphabet {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding: 1rem;
+                background: #f7f7f7;
+                border-radius: 4px;
+                padding-bottom: 0;
+                .alphabet-letter {
+                    padding: 0.4rem;
+                    min-width: 2rem;
+                    text-align: center;
+                    background: none;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: #333a40;
+                        color: white;
+                    }
+
+                    &.active {
+                        background: #fb8500;
+                        color: white;
+                    }
+
+                    &[data-letter="all"] {
+                        background: #333a40;
+                        color: white;
+                        border-color: #333a40;
+                    }
+                }
+            }
+
+            .featured-brands {
+
+                padding: 0 1rem;
+                background: #f7f7f7;
+                border-radius: 4px;
+
+                h3 {
+                    margin: 0 0 1rem;
+                    color: #333a40;
+                    text-align: center;
+                    font-size: 1.2rem;
+                    text-transform: uppercase;
+                }
+
+                .featured-brands-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1rem;
+                    
+                    .featured-brand {
+                        text-align: center;
+
+                        a {
+                            display: block;
+                            padding: 0.5rem;
+                            color: #333a40;
+                            text-decoration: none;
+                            font-weight: 500;
+                            transition: all 0.2s ease;
+
+                            &:hover {
+                                color: #fb8500;
+                                transform: translateY(-2px);
+                            }
+
+                            img {
+                                max-width: 100%;
+                                height: auto;
+                                display: block;
+                                margin: 0 auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .brands-list {
+            .brand-group {
+                margin-bottom: 1.5rem;
+
+                .brand-letter {
+                    color: #fb8500;
+                    border-bottom: 2px solid #333a40;
+                    padding-bottom: 0.5rem;
+                    margin-bottom: 1rem;
+                }
+
+                .brand-items {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 0.5rem;
+
+                    li {
+                        list-style: none;
+                        
+                        a {
+                            display: block;
+                            padding: 0.5rem;
+                            color: #333a40;
+                            text-decoration: none;
+
+                            &:hover {
+                                color: #fb8500;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+// Add this to handle the open state of the navigation container
+.navPages-container.is-open {
+    position: relative;
+    padding-top:0 ;
+    height: 100vh;
+    overflow-y: auto; // Changed from hidden to auto
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+}
+
+// Remove the mobile-view class as it's no longer needed
+.has-activeNavPages {
+    .navPages {
+        display: block;
+    }
+}
+.navPages .navPages-tabs .navPages-tab.active:focus{
+    outline: 0px !important;
+}

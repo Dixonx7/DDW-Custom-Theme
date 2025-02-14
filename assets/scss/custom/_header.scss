@@ -1,0 +1,286 @@
+// =============================================================================
+// HEADER (CSS)
+// ----------------------------------------------
+.header {
+    height: auto;
+
+    .header-logo {
+        margin: 0;
+    }
+
+    .header-logo-image {
+        max-height: unset;
+    }
+
+    .header-logo__link {
+        width: 100%;
+    }
+}
+
+.mobileMenu-toggle .mobileMenu-toggleIcon {
+    top: unset;
+}
+
+.mobileMenu-toggle {
+    position: unset;
+}
+
+.header-top {
+    background-color: #333a40;
+    padding: 5px 0; // Reduced padding
+
+
+    .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        height: 100%; // Ensure wrapper takes full height
+
+        .phone-number,
+        .selling_point_one,
+        .selling_point_two {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; // Ensure all divs take full height
+
+            span {
+                height: 100%; // Ensure spans take full height
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .phone-number {
+            flex: 0 0 auto;
+            padding: 0 1%; // Add padding left and right
+            .phone-number-link {
+                display: flex;
+                align-items: center;
+                color: #fff;
+                background-color: #333a40; // Match background color
+
+                .phone-number-icon {
+                    margin-right: 5px;
+                    background-color: #333a40; // Match background color
+                    svg {
+                        fill: #fb8500; // Orange fill for desktop
+                        width: 2em; // Adjust the size to match the text
+                        height: 2em; // Adjust the size to match the text
+                        object-fit: cover; // Crop the SVG
+                    }
+                }
+
+                .phone-number-number {
+                    display: block; // Display by default
+                }
+            }
+        }
+
+        .selling_point_one,
+        .selling_point_two {
+            flex: 1; // Fill the rest of the space
+            text-align: center;
+            color: #fff;
+        }
+
+        .selling_point_one {
+            border-left: 3px solid #fb8500; // Add orange line divider
+            border-right: 3px solid #fb8500; // Add orange line divider
+        }
+    }
+}
+
+.header-main {
+    background-color: #ffffff;
+    border-bottom: 2px solid #cccccc;
+    width: 100%;
+    .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+
+        .mobileMenu-toggle,
+        .search-icon,
+        .account-icon,
+        .basket-icon {
+            flex: 0 0 10%; // Set flex basis to 12.5%
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+                width: 2em;
+                height: 2em;
+            }
+        }
+
+        .header-logo {
+            flex: 0 0 50%; // Set flex basis to 50%
+            text-align: center;
+        }
+
+        .navUser-item--cart {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .countPill {
+                position: absolute;
+                top: calc(50% - 0.5em);
+                background-color: #fb8500;
+                color: #fff;
+                border-radius: 50%;
+                padding: 0;
+                font-size: 0.8em;
+                font-weight: bold;
+                height: 1.5em;
+                width: 1.5em;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.header-usp {
+    background-color: #f8f8f8;
+    padding: 0.2em 0;
+    border-bottom: 2px solid #cccccc;
+    .carousel {
+        .usp-item {
+            text-align: center;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.5em; // Ensure all USP items are the same height
+            font-weight: 900;
+            font-size: 1rem;
+            .usp-icon {
+                position: relative;
+                display: inline-block;
+                margin-right: 5px;
+                
+                svg {
+                    color: #fb8500;
+                    width: 3em; // Adjust the size to match the text
+                    height: 3em; // Adjust the size to match the text
+                    object-fit: cover; // Crop the SVG
+                }
+
+                .usp-text {
+                    position: absolute;
+                    top: 40%;
+                    left: 67%;
+                    transform: translate(-50%, -50%);
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 0.7em;
+                    font-family: 'Roboto', sans-serif;
+                }
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                svg {
+                    margin: 0 5px;
+                    width: 8em; // Adjust the size to match the text
+                    height: 8em; // Adjust the size to match the text
+                    object-fit: cover; // Crop the SVG
+                }
+            }
+        }
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    33.33% {
+        transform: translateX(0);
+    }
+    33.34% {
+        transform: translateX(-100%);
+    }
+    66.66% {
+        transform: translateX(-100%);
+    }
+    66.67% {
+        transform: translateX(-200%);
+    }
+    100% {
+        transform: translateX(-200%);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-top {
+        .wrapper {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .phone-number {
+                flex: 0 0 auto;
+                padding: 0 2.5%; // Add padding left and right
+                overflow: hidden; // Add overflow hidden
+
+                .phone-number-link {
+                    .phone-number-icon {
+                        svg {
+                            width: 1.5em; // Adjust the size to match the text
+                            height: 1.5em; // Adjust the size to match the text
+                        }
+                    }
+
+                    .phone-number-number {
+                        display: none; // Hide on small screens
+                    }
+                }
+            }
+
+            .selling_point_one,
+            .selling_point_two {
+                flex: 1; // Fill the rest of the space
+                text-align: center;
+                color: #fff;
+
+                span {
+                    height: 100%; // Ensure spans take full height
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            .selling_point_one {
+                border-left: 3px solid #fb8500; // Add orange line divider
+                border-right: 3px solid #fb8500; // Add orange line divider
+            }
+        }
+    }
+
+    .header-usp {
+        .carousel {
+            .usp-item {
+                padding: 0 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 375px) {
+    .selling_point_one span,
+    .selling_point_two span {
+        font-size: 0.9rem; // Adjust font size for small screens
+    }
+}
+
+
+

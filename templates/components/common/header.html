@@ -11,24 +11,102 @@
 </div>
 {{/if}}
 <header class="header" role="banner">
-    <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu">
-        <span class="mobileMenu-toggleIcon">Toggle menu</span>
-    </a>
-    {{> components/common/navigation}}
-
-    {{#if page_type '===' 'default'}}
-        <h1 class="header-logo header-logo--{{theme_settings.logo-position}}">
-            {{> components/common/store-logo}}
-        </h1>
-    {{else}}
-        <div class="header-logo header-logo--{{theme_settings.logo-position}}">
-            {{> components/common/store-logo}}
+    <div class="header-top">
+        <div class="wrapper">
+            <div class="phone-number">
+                <a href="tel:{{theme_settings.phone_number}}" class="phone-number-link">
+                    <span class="phone-number-icon">
+                        <svg><use xlink:href="#icon-phone"></use></svg>
+                    </span>
+                    <span class="phone-number-number">01723 512001</span>
+                </a>
+            </div>
+            <div class="selling_point_one">
+                <span>Same Day Dispatch</span>
+            </div>
+            <div class="selling_point_two">
+                <span>Free Delivery Over £50</span>
+            </div>
         </div>
-    {{/if}}
+    </div>
+    <div class="header-main">
+        <div class="wrapper">
+            <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu">
+                <span class="mobileMenu-toggleIcon">Toggle menu</span>
+            </a>
+            <button class="navUser-action navUser-action--quickSearch search-icon" type="button" id="quick-search-expand" data-search="quickSearch" aria-controls="quickSearch" aria-label="Search" aria-expanded="false">
+                <svg><use xlink:href="#icon-search"></use></svg>
+            </button>
+            <li class="navUser-item">
+                <button class="navUser-action navUser-action--quickSearch search-icon"
+                   type="button"
+                   id="quick-search-expand"
+                   data-search="quickSearch"
+                   aria-controls="quickSearch"
+                   aria-label="{{lang 'common.search'}}"
+                >
+                <svg><use xlink:href="#icon-search"></use></svg>
+                </button>
+            </li>
+            {{#if page_type '===' 'default'}}
+                <h1 class="header-logo header-logo--{{theme_settings.logo-position}}">
+                    {{> components/common/store-logo}}
+                </h1>
+            {{else}}
+                <div class="header-logo header-logo--{{theme_settings.logo-position}}">
+                    {{> components/common/store-logo}}
+                </div>
+            {{/if}}
+            <a href="{{urls.account.index}}" class="account-icon" aria-label="{{lang 'common.account'}}">
+                <svg><use xlink:href="#icon-account"></use></svg>
+            </a>
+            <li class="navUser-item navUser-item--cart">
+                <a class="navUser-action basket-icon"
+                   data-cart-preview
+                   data-dropdown="cart-preview-dropdown"
+                   data-options="align:right"
+                   href="{{urls.cart}}"
+                   aria-label="{{lang 'cart.nav_aria_label'}}"
+                >
+                    <svg><use xlink:href="#icon-basket"></use></svg>
+                    <span class="navUser-item-cartLabel">{{lang 'common.cart'}}</span>
+                    <span class="countPill cart-quantity"></span>
+                </a>
+                
+            </li>
+        </div>
+        <div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true">
+            {{> components/common/cart-preview}}
+        </div>
+        <div class="dropdown dropdown--quickSearch" id="quickSearch" aria-hidden="true" data-prevent-quick-search-close>
+            {{> components/common/quick-search name='nav-quick-search'}}
+        </div>
+    </div>
+    <!-- {{> components/common/navigation}} -->
     <div class="navPages-container" id="menu" data-menu>
         {{> components/common/navigation-menu}}
     </div>
     {{{region name="header_navigation_bottom--global"}}}
+    <div class="header-usp">
+        <div class="carousel" data-slick='{"autoplay": true, "autoplaySpeed": 5000, "dots": false, "arrows": false, "infinite": true, "fade": true}'>
+            <div class="usp-item">
+                <span class="usp-icon">
+                    <svg><use xlink:href="#icon-truck"></use></svg>
+                    <span class="usp-text">FREE</span>
+                </span>
+                Free Shipping On Orders Over £50
+            </div>
+            <div class="usp-item"><span class="usp-icon">
+                <svg><use xlink:href="#icon-shop"></use></svg>
+            </span>Family Run Since 1959</div>
+            <div class="usp-item">
+                <a href="https://uk.trustpilot.com/review/ddwonline.co.uk" target="_blank" rel="noopener noreferrer">
+                    <svg><use xlink:href="#icon-trustpilot-logo"></use></svg>
+                    <svg><use xlink:href="#icon-trustpilot-5star"></use></svg>
+                </a>
+            </div>
+        </div>
+    </div>
 </header>
 {{{region name="header_bottom--global"}}}
 {{{region name="header_bottom"}}}

@@ -7,7 +7,7 @@ document.getElementsByTagName('head')[0].appendChild(document.createElement('scr
 // jQuery thinks all elements are not visible under jsdom
 // See https://github.com/jsdom/jsdom/issues/1048
 window.Element.prototype.getClientRects = function () {
-    var node = this;
+    let node = this;
     while (node) {
         if (node === document) {
             break;

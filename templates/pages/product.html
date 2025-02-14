@@ -13,7 +13,37 @@ product:
 
 {{#partial "page"}}
 
-    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+    <!-- Commented out standard breadcrumbs -->
+    <!-- {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}} -->
+
+    <!-- New breadcrumb generation -->
+    <nav aria-label="Breadcrumb">
+        <ol class="breadcrumbs">
+            <li class="breadcrumb">
+                <a class="breadcrumb-label" href="{{urls.home}}">
+                    <svg><use xlink:href="#icon-home"></use></svg>
+                </a>
+            </li>
+            {{#each breadcrumbs}}
+                {{#unless @first}}
+                    {{#unless @last}}
+                        <li class="breadcrumb">
+                            <a class="breadcrumb-label" href="{{url}}">
+                                <span>{{name}}</span>
+                            </a>
+                        </li>
+                    {{/unless}}
+                {{/unless}}
+            {{/each}}
+            <li class="breadcrumb breadcrumb-last">
+                <a class="breadcrumb-label" href="/shop-all">
+                    <span>Shop All Products</span>
+                </a>
+            </li>
+        </ol>
+    </nav>
+
+    
 
     {{#each product.shipping_messages}}
         {{> components/common/alert/alert-info message}}

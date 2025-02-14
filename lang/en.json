@@ -37,7 +37,7 @@
         "title": "Checkout"
     },
     "cart": {
-        "nav_aria_label": "Cart with 0 items",
+        "nav_aria_label": "Basket with 0 items",
         "continue_shopping": "Click here to continue shopping",
         "login_to_checkout": "Login to proceed to checkout",
         "items": "{NUM, plural, =0{(0 items)} one {(# item)} other {(# items)}}",
@@ -47,7 +47,7 @@
                 "or": "or"
             },
             "button": "Check out",
-            "empty_cart": "Your cart is empty",
+            "empty_cart": "Your basket is empty",
             "title": "Click here to proceed to checkout",
             "item": "Item",
             "price": "Price",
@@ -64,10 +64,10 @@
         "preview": {
             "checkout_now": "Check out now",
             "checkout_multiple": "or check out with multiple addresses",
-            "view_cart": "View Cart"
+            "view_cart": "View basket"
         },
-        "label": "Your Cart ({quantity, plural, one {# item} other {# items}})",
-        "is_empty": "Your cart is empty",
+        "label": "Your basket ({quantity, plural, one {# item} other {# items}})",
+        "is_empty": "Your basket is empty",
         "invalid_entry_message": "[ENTRY] is not a valid entry",
         "coupon_code": "Coupon Code",
         "discount": "Discount",
@@ -76,7 +76,7 @@
         "freeshipping": "Free Shipping",
         "reconfigure_product": "Configure '{name}'",
         "shipping_peritem": "Per Item Shipping",
-        "remove_item": "Remove {name} from cart",
+        "remove_item": "Remove {name} from basket",
         "confirm_delete": "Are you sure you want to delete this item?",
         "coupons": {
             "apply_coupon": "Apply coupon",
@@ -128,12 +128,12 @@
             "preview": "Preview"
         },
         "added_to_cart": {
-            "what_next": "Ok, {num_products, plural, one {1 item was} other {# items were}} added to your cart. What's next?",
-            "your_cart_contains": "Your cart contains {num_products, plural, one {1 item} other {# items}}",
+            "what_next": "Ok, {num_products, plural, one {1 item was} other {# items were}} added to your basket. What's next?",
+            "your_cart_contains": "Your basket contains {num_products, plural, one {1 item} other {# items}}",
             "proceed_to_checkout": "Proceed to checkout",
             "order_subtotal": "Order subtotal",
             "continue_shopping": "Continue Shopping",
-            "view_or_edit_cart": "View or edit your cart",
+            "view_or_edit_cart": "View or edit your basket",
             "you_might_also_like": "You may also like"
         }
     },
@@ -142,7 +142,7 @@
         "store_credit_overview": "{credit} Store Credit",
         "generic_error": "Oops! Something went wrong.",
         "currency": "Currency: {code}",
-        "currency_switch_promotion" : "Promotions and gift certificates that don't apply to the new currency will be removed from your cart. Are you sure you want to continue?",
+        "currency_switch_promotion" : "Promotions and gift certificates that don't apply to the new currency will be removed from your basket. Are you sure you want to continue?",
         "channel": "Store: {code}",
         "channel_switch_warning" : "Warning text for store switching",
         "newsletter_signup": "Register for our newsletter",
@@ -170,7 +170,7 @@
         "login_for_pricing": "Log in for pricing",
         "logout": "Sign out",
         "account": "Account",
-        "cart": "Cart",
+        "cart": "Basket",
         "search": "Search",
         "gift_cert": "Gift Certificates",
         "save": "Save",
@@ -223,7 +223,7 @@
         "header": "Comparing {products, plural, one {# Product} other {# Products}}",
         "remove": "Remove",
         "no_remove": "At least 2 products are needed to make a valid comparison.",
-        "add_to_cart": "Add to cart",
+        "add_to_cart": "Add to Basket",
         "no_compare": "You must select at least two products to compare"
     },
     "category": {
@@ -253,8 +253,8 @@
             "heading": "Redeem Gift Certificate",
             "intro": "To redeem a gift certificate at {store_name}, follow the simple steps below.",
             "item1": "You need your unique gift certificate code, which is part of the gift certificate that was emailed to you as an attachment. It will look something like Z50-Y6K-COS-402.",
-            "item2": "Browse the store and add items to your cart as you normally would.",
-            "item3": "Click the '<a href=\"{cart_url}\">View Cart</a>' link to view the contents of your shopping cart.",
+            "item2": "Browse the store and add items to your basket as you normally would.",
+            "item3": "Click the '<a href=\"{cart_url}\">View Basket</a>' link to view the contents of your shopping basket.",
             "item4": "Type your gift certificate code in to the 'Redeem Gift Certificate' box and click 'Go'."
         },
         "balance": {
@@ -484,7 +484,7 @@
             "you_have_none": "You have no Wish Lists, add one now.",
             "empty_wishlist": "Your Wish List is empty. When you add items to your Wish List they will appear here.",
             "num_items": "Items",
-            "add_item": "Add to Wish List",
+            "add_item": "Wish List",
             "remove_item": "Remove Item",
             "name": "Wish List Name",
             "shared": "Shared",
@@ -612,7 +612,7 @@
                 "agree2": "I agree that Gift Certificates are nonrefundable",
                 "preview": "Preview",
                 "preview_error": "There was a problem loading the preview. Please try again later.",
-                "submit_value": "Add Gift Certificate to Cart"
+                "submit_value": "Add Gift Certificate to Basket"
             },
             "balance": {
                 "code": "Gift Certificate Code",
@@ -765,8 +765,8 @@
             "hide": "Hide Videos",
             "show": "Show Videos"
         },
-        "add_to_cart": "Add to Cart",
-        "adding_to_cart": "Adding to cart…",
+        "add_to_cart": "Add to Basket",
+        "adding_to_cart": "Adding to basket…",
         "options": "Options",
         "none": "None",
         "sku": "SKU:",
@@ -842,15 +842,15 @@
         "comments": "Comments"
     },
     "newsletter": {
-        "subscribe": "Subscribe to our newsletter",
-        "subscribe_intro": "Get the latest updates on new products and upcoming sales",
-        "subscribe_submit": "Subscribe",
-        "email_placeholder": "Your email address",
-        "subscribed_heading": "Thanks for Subscribing!",
-        "subscribed_heading_error": "Oops...",
-        "subscribed_message": "Thank you for joining our mailing list. You'll be sent the next issue of our newsletter shortly",
-        "unsubscribed_heading": "Unsubscribed!",
-        "unsubscribed_message": "You will no longer receive marketing emails from <b>{store_name}</b>"
+        "subscribe": "Sign Up for Our Newsletter",
+        "subscribe_intro": "Be the first to know about exclusive offers, new arrivals, and more.",
+        "subscribe_submit": "Sign Up",
+        "email_placeholder": "Enter your email address",
+        "subscribed_heading": "Thank You for Subscribing!",
+        "subscribed_heading_error": "Something Went Wrong...",
+        "subscribed_message": "Thanks for joining our mailing list. You’ll receive the latest news and exclusive offers straight to your inbox soon.",
+        "unsubscribed_heading": "You’ve Unsubscribed",
+        "unsubscribed_message": "You’ll no longer receive marketing emails from <b>{store_name}</b>. We're sorry to see you go!</b>"
     },
     "social": {
         "connect": "Connect With Us"
@@ -863,7 +863,7 @@
         "errorMessage": "There was a problem retrieving your results. Please try again in a few seconds.",
         "quick_search": {
             "input_label": "Search",
-            "input_placeholder": "Search the store"
+            "input_placeholder": "Search Products & Brands"
         },
         "results": {
             "form_label": "Search Keyword:",

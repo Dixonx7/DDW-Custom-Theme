@@ -10,84 +10,154 @@
     </div>
 {{/if}}
 <footer class="footer" role="contentinfo">
-    <h2 class="footer-title-sr-only">{{lang 'footer.title'}}</h2>
-    <div class="container">
-        {{#if theme_settings.social_icon_placement_bottom '!==' 'bottom_none'}}
-            <article class="footer-info-col
-                footer-info-col--social
-                footer-info-col--{{#if theme_settings.social_icon_placement_bottom '===' 'bottom_left'}}left{{else}}right{{/if}}"
-                data-section-type="footer-webPages">
-                    <h3 class="footer-info-heading">{{lang 'social.connect'}}</h3>
-                    {{> components/common/social-links}}
-            </article>
-        {{/if}}
-        <section class="footer-info">
-            <article class="footer-info-col footer-info-col--small" data-section-type="footer-webPages">
-                <h3 class="footer-info-heading">{{lang 'footer.navigate'}}</h3>
-                <ul class="footer-info-list">
-                    {{#each pages}}
-                        <li>
-                            <a href="{{url}}">{{name}}</a>
-                        </li>
-                    {{/each}}
-                    <li>
-                        <a href="{{urls.sitemap}}">{{lang 'sitemap.page_title'}}</a>
-                    </li>
-                </ul>
-            </article>
+    <!-- Newsletter Section --><div class="footer-section">
+        {{#if settings.show_newsletter_box}}
+        <div class="footer-newsletter">
+            {{> components/common/subscription-form}}
+        </div>
+        {{/if}}</div>
+        <div class="container">
+        
 
-            <article class="footer-info-col footer-info-col--small" data-section-type="footer-categories">
-                <h3 class="footer-info-heading">{{lang 'footer.categories'}}</h3>
-                <ul class="footer-info-list">
-                    {{#each categories}}
-                        <li>
-                            <a href="{{url}}">{{name}}</a>
-                        </li>
-                    {{/each}}
-                </ul>
-            </article>
+        <div class="footer-sections">
+            <!-- Accordion Sections in single column -->
+            <div class="footer-links">
+                <!-- Help Section -->
+                <div class="footer-section">
+                    <button class="accordion-trigger" aria-expanded="false">
+                        <span>Help</span>
+                        <span class="icon" aria-hidden="true">
+                            <svg class="icon-arrow-down"><use href="#icon-arrow-down"></use></svg>
+                            <svg class="icon-arrow-up"><use href="#icon-arrow-up"></use></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li><a href="/Contact-Us/" aria-label="Contact our support team">Contact Us</a></li>
+                            <li><a href="/Frequently-Asked-Questions/" aria-label="View frequently asked questions">Frequently Asked Questions</a></li>
+                            <li><a href="/Returns-Policy/" aria-label="View returns policy">Returns Policy</a></li>
+                            <li><a href="/Guarantee-Information/" aria-label="View guarantee information">Guarantee Information</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-            {{#and theme_settings.shop_by_brand_show_footer shop_by_brand.length}}
-            <article class="footer-info-col footer-info-col--small" data-section-type="footer-brands">
-                <h3 class="footer-info-heading">{{lang 'footer.brands'}}</h3>
-                <ul class="footer-info-list">
-                    {{#each shop_by_brand}}
-                        <li>
-                            <a href="{{url}}">{{name}}</a>
-                        </li>
-                    {{/each}}
-                    <li><a href="{{urls.brands}}">{{lang 'common.view_all'}}</a></li>
-                </ul>
-            </article>
-            {{/and}}
+                <!-- Delivery & Returns Section -->
+                <div class="footer-section">
+                    <button class="accordion-trigger" aria-expanded="false">
+                        <span>Delivery & Returns</span>
+                        <span class="icon" aria-hidden="true">
+                            <svg class="icon-arrow-down"><use href="#icon-arrow-down"></use></svg>
+                            <svg class="icon-arrow-up"><use href="#icon-arrow-up"></use></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li><a href="/Delivery-Information/" aria-label="View delivery information">Delivery Information</a></li>
+                            <li><a href="/Returns-Policy/" aria-label="View returns policy">Returns Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-            {{#if settings.address}}
-            <article class="footer-info-col footer-info-col--small" data-section-type="storeInfo">
-                <h3 class="footer-info-heading">{{lang 'footer.info'}}</h3>
-                <address>{{nl2br settings.address}}</address>
-                {{#if settings.phone_number}}
-                    <strong>{{lang 'footer.call_us' phone_number=settings.phone_number}}</strong>
-                {{/if}}
-            </article>
-            {{/if}}
+                <!-- About Section -->
+                <div class="footer-section">
+                    <button class="accordion-trigger" aria-expanded="false">
+                        <span>About</span>
+                        <span class="icon" aria-hidden="true">
+                            <svg class="icon-arrow-down"><use href="#icon-arrow-down"></use></svg>
+                            <svg class="icon-arrow-up"><use href="#icon-arrow-up"></use></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li><a href="/about">About DDW Online</a></li>
+                            <li><a href="/why-us">Why Us</a></li>
+                            <li><a href="/Contact-Us/">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-            <article class="footer-info-col" data-section-type="newsletterSubscription">
-                {{#if settings.show_newsletter_box}}
-                    {{> components/common/subscription-form}}
-                {{/if}}
-                {{> components/common/payment-icons}}
-            </article>
-        </section>
-        {{#if theme_settings.show_powered_by}}
-            <div class="footer-copyright">
-                <p class="powered-by">{{lang 'footer.powered_by'}} <a href="https://www.bigcommerce.com?utm_source=merchant&amp;utm_medium=poweredbyBC" rel="nofollow">BigCommerce</a></p>
+                <!-- Legal Section -->
+                <div class="footer-section">
+                    <button class="accordion-trigger" aria-expanded="false">
+                        <span>Legal</span>
+                        <span class="icon" aria-hidden="true">
+                            <svg class="icon-arrow-down"><use href="#icon-arrow-down"></use></svg>
+                            <svg class="icon-arrow-up"><use href="#icon-arrow-up"></use></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li><a href="/privacy">Privacy Policy</a></li>
+                            <li><a href="/terms">Terms & Conditions</a></li>
+                            <li><a href="/cookies">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        {{/if}}
-        {{#if theme_settings.show_copyright_footer}}
-            <div class="footer-copyright">
-                <p class="powered-by">&copy; {{moment format="YYYY"}} {{settings.store_name}} </p>
+        </div>
+
+        <!-- Store Information with new header -->
+        <div class="store-info-wrapper">
+            <div class="store-info">
+                <div class="store-info-item">
+                    <div class="header-block">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                        </svg>
+                        <h3>Address</h3>
+                    </div>
+                    <div class="title-accent"></div>
+                    <div class="contact-details">
+                        <address>
+                            Dixons Discount Warehouse LTD<br>
+                            5 - 11 West Avenue<br>
+                            Filey, North Yorkshire<br>
+                            YO14 9AA<br>
+                            United Kingdom
+                        </address>
+                    </div>
+                </div>
+                <div class="store-info-item">
+                    <div class="header-block">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        <h3>Contact Us</h3>
+                    </div>
+                    <div class="title-accent"></div>
+                    <div class="contact-details">
+                        <p class="phone">Tel: <a href="tel:+441723512001">01723 512001</a></p>
+                        <p class="email">Email: <a href="mailto:sales@ddwonline.co.uk">sales@ddwonline.co.uk</a></p>
+                        <div class="opening-hours">
+                            <h4>Opening Hours</h4>
+                            <div class="hours-grid">
+                                <span>Mon - Fri:</span><span>9am - 4pm</span>
+                                <span>Saturday:</span><span>9am - 1pm</span>
+                                <span>Sunday:</span><span>Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        {{/if}}
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="footer-social">
+            <h3>Socials</h3>
+            <div class="social-icons">
+                {{> components/common/social-links}}
+            </div>
+        </div>
+
+        <!-- Payment Icons Section -->
+        <div class="footer-payments">
+            <h3>Payment & Security</h3>
+            {{> components/common/payment-icons}}
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-copyright">
+            <p>&copy; {{moment format="YYYY"}} {{settings.store_name}}</p>
+        </div>
     </div>
-    {{{region name="ssl_site_seal--global"}}}
 </footer>

@@ -217,5 +217,40 @@ export default function mobileMenuToggleFactory(selector = `[data-${PLUGIN_KEY.S
 
     $toggle.data(instanceKey, mobileMenu);
 
+    // Call this function after mobile menu is initialized
+    initMobileMenuTabs();
+
     return mobileMenu;
+}
+
+// Add this after the existing mobile menu code
+function initMobileMenuTabs() {
+    const tabs = document.querySelectorAll('.navPages-tab');
+    const contents = document.querySelectorAll('.navPages-content');
+
+    // Set initial state
+    contents.forEach(content => {
+        if (content.id === 'shopTab') {
+            content.classList.add('active');
+        } else {
+            content.classList.remove('active');
+        }
+    });
+
+    tabs.forEach(tab => {
+        if (tab.dataset.tab === 'shop') {
+            tab.classList.add('active');
+        }
+
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs and contents
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked tab and corresponding content
+            tab.classList.add('active');
+            const tabId = tab.dataset.tab;
+            document.getElementById(`${tabId}Tab`).classList.add('active');
+        });
+    });
 }

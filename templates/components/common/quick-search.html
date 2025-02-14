@@ -1,19 +1,28 @@
 <div class="container">
-    <form class="form" data-url="{{urls.search}}" data-quick-search-form>
-        <fieldset class="form-fieldset">
-            <div class="form-field">
-                <label class="is-srOnly" for="{{name}}">{{lang "search.quick_search.input_label"}}</label>
-                <input class="form-input"
-                       data-search-quick
-                       name="{{name}}"
-                       id="{{name}}"
-                       data-error-message="{{lang 'search.error.empty_field'}}"
-                       placeholder="{{lang 'search.quick_search.input_placeholder'}}"
-                       autocomplete="off"
-                >
-            </div>
-        </fieldset>
-    </form>
+    <div class="modal-close-wrapper">
+        <button type="button" class="modal-close" data-search="quickSearch" aria-label="Close search">
+            <span class="modal-close-x">
+                <svg><use xlink:href="#icon-close"></use></svg>
+            </span>
+        </button>
+    </div>
+    <div class="quickSearch-header">
+        <form class="form" onsubmit="return false" data-url="{{urls.search}}" data-quick-search-form>
+            <fieldset class="form-fieldset">
+                <div class="form-field">
+                    <label class="is-srOnly" for="{{name}}">{{lang "search.quick_search.input_label"}}</label>
+                    <input class="form-input"
+                           data-search-quick
+                           name="{{name}}"
+                           id="{{name}}"
+                           data-error-message="{{lang 'search.error.empty_field'}}"
+                           placeholder="{{lang 'search.quick_search.input_placeholder'}}"
+                           autocomplete="off"
+                    >
+                </div>
+            </fieldset>
+        </form>
+    </div>
     <section class="quickSearchResults" data-bind="html: results"></section>
     <p role="status"
        aria-live="polite"

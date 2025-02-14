@@ -1,0 +1,132 @@
+// =============================================================================
+// CUSTOM TABS (CSS)
+// =============================================================================
+.productView-details{
+.tabs {
+    background-color: #f8f8f8;
+    border-top: 1px solid #333a40; // Light grey top border to match product view
+    border-bottom: 1px solid #333a40; // Light grey bottom border to match product view
+
+    .tab-title {
+        color: #333a40; // Dark grey text
+        width: 100%;
+        padding: 0;
+        font-size: 1.7em; // Bigger text
+        font-family: stencilFontFamily("headings-font");// Use heading font from config
+        text-decoration: none;
+    }    
+}}
+
+.card-title a {
+    font-size: 1rem;
+}
+
+.productCarousel-slide {
+    height: 100%; // Ensure the slide takes the full height
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.productCarousel-slide .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; // Ensure the card takes the full height
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; // Ensure the content is spaced evenly
+    height: 100%; // Ensure the card body takes the full height
+    flex: 1 1 auto; // Ensure the body takes up available space
+    padding: 0rem;
+
+    .price-section.price-section--withTax.price--withTax {
+        font-size: 1.5rem;
+        .price-now-label {
+            display: none;
+        }
+    }
+
+    .price-section.price-section--withTax.non-sale-price--withTax {
+        display: block !important;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        min-height: 0.8em;
+        line-height: 0.8em;
+        display: block;
+        flex: 0 0 auto;
+        min-height: 1em;
+        margin-bottom: 0;
+        
+        &:empty {
+            min-height: 1em;
+            display: block !important;
+        }
+        span:first-of-type {
+            display: none;
+        }
+    }
+
+    .card-text[data-test-info-type="brandName"] {
+        color: #fb8500; // Orange color for brand text
+        font-weight: 700;
+        font-family: stencilFontFamily("headings-font");
+        text-transform: uppercase;
+        flex: 1; // Allow the brand name to take up available space
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal; // Allow text to wrap
+        min-height: 1em; // Ensure the brand name takes up at least two lines
+        line-height: 1em; // Adjust line height if necessary
+        height: 1em;
+        margin-bottom: 0rem;
+        flex: 0 0 auto;
+
+        &:empty {
+            height: 1em; // Keep the height even when empty
+            margin-bottom: 0.5rem; // Keep the spacing
+            display: block; // Ensure the space is maintained
+        }
+    }
+
+    .card-title {
+        flex: 1; // Allow the title to take up available space
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal; // Allow text to wrap
+        min-height: 2em; // Ensure the title takes up at least five lines
+        line-height: 1em; // Adjust line height if necessary
+        display: -webkit-box;
+        -webkit-line-clamp: 2; // Limit to 5 lines
+        line-clamp: 2; // Standard property for compatibility
+        -webkit-box-orient: vertical;
+        min-height: 2.4em;
+        line-height: 1.2em;
+        margin: 0; // Reset margin
+
+        &:first-child {
+            padding-top: 1rem; // Compensate for missing brand name
+        }
+    }
+
+    .price-section {
+        flex: 0 0 auto; // Allow the price section to take its natural height
+    }
+
+    .button.button--primary {
+        padding: 0.5rem 0.1rem;
+        width: 100%;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+}
+#tab-related{
+    padding-top: 0.25rem;
+}
+.tabs-contents, .tab-content.has-jsContent.is-active {
+    margin-bottom: 0rem;
+    padding-bottom: 0;
+}

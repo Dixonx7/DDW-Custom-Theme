@@ -87,21 +87,6 @@
                         {{lang 'products.compare'}} <input type="checkbox" name="products[]" value="{{id}}" id="compare-{{id}}" data-compare-id="{{id}}">
                     </label>
                 {{/if}}
-                {{#if show_cart_action}}
-                    {{#if has_options}}
-                        <a href="{{url}}" data-event-type="product-click" class="button button--small card-figcaption-button" data-product-id="{{id}}">{{lang 'products.choose_options'}}</a>
-                    {{/if}}
-                    {{#if pre_order}}
-                        <a href="{{pre_order_add_to_cart_url}}" data-event-type="product-click" class="button button--small card-figcaption-button">{{lang 'products.pre_order'}}</a>
-                    {{/if}}
-                    {{#if add_to_cart_url }}
-                        <a href="{{add_to_cart_url}}" data-event-type="product-click" data-button-type="add-cart" class="button button--small card-figcaption-button">{{lang 'products.add_to_cart'}}</a>
-                        <span class="product-status-message aria-description--hidden">{{lang 'category.add_cart_announcement'}}</span>
-                    {{/if}}
-                    {{#if out_of_stock_message }}
-                        <a href="{{url}}" data-event-type="product-click" class="button button--small card-figcaption-button" data-product-id="{{id}}">{{out_of_stock_message}}</a>
-                    {{/if}}
-                {{/if}}
             </div>
         </figcaption>
     </figure>
@@ -132,7 +117,24 @@
                 {{> components/common/login-for-pricing}}
             {{/or}}
         </div>
+        <div class="">
+        {{#if show_cart_action}}
+        {{#if has_options}}
+            <a href="{{url}}" data-event-type="product-click" class="button button--small button--primary" data-product-id="{{id}}">{{lang 'products.choose_options'}}</a>
+        {{/if}}
+        {{#if pre_order}}
+            <a href="{{pre_order_add_to_cart_url}}" data-event-type="product-click" class="button button--small button--primary">{{lang 'products.pre_order'}}</a>
+        {{/if}}
+        {{#if add_to_cart_url }}
+            <a href="{{add_to_cart_url}}" data-event-type="product-click" data-button-type="add-cart" class="button button--small button--primary">{{lang 'products.add_to_cart'}}</a>
+            <span class="product-status-message aria-description--hidden">{{lang 'category.add_cart_announcement'}}</span>
+        {{/if}}
+        {{#if out_of_stock_message }}
+            <a href="{{url}}" data-event-type="product-click" class="button button--small button--primary" data-product-id="{{id}}">{{out_of_stock_message}}</a>
+        {{/if}}
+    {{/if}}
         {{{region name="product_item_below_price"}}}
         {{> components/products/bulk-discount-rates}}
+    </div>
     </div>
 </article>
