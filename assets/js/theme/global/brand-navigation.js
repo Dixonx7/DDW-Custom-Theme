@@ -29,32 +29,19 @@ export default function initBrandNavigation() {
             })
             .map(letter => ({
                 letter,
-                html: `<button class="alphabet-letter ${letter === 'All' ? 'active' : ''}" 
-                              data-letter="${letter}">${letter}</button>`
+                html: `<button class="alphabet-letter ${letter === 'All' ? 'active' : ''}"
+                              data-letter="${letter}">${letter}</button>`,
             }));
     }
 
-    function filterBrands(selected) {
-        const brands = document.querySelectorAll('.brand-items li');
-        brands.forEach(brand => {
-            const link = brand.querySelector('a');
-            if (!link) return;
-
-            const firstChar = getFirstChar(link.textContent);
-            brand.style.display = (
-                selected === 'All' || 
-                (selected === '#' && /[0-9]/.test(firstChar)) ||
-                firstChar === selected
-            ) ? '' : 'none';
-        });
-    }
     function filterBrands(letter) {
         const brands = document.querySelectorAll('.brand-items li');
-        brands.forEach(brand => {
-            const link = brand.querySelector('a');
+        brands.forEach(item => {
+            const link = item.querySelector('a');
             if (!link) return;
 
             const brandLetter = getFirstChar(link.textContent);
+            const brand = item;
             brand.style.display = (letter === 'All' || brandLetter === letter) ? '' : 'none';
         });
     }
@@ -62,6 +49,27 @@ export default function initBrandNavigation() {
     function init() {
         const container = document.querySelector('.brands-alphabet');
         if (!container) return;
+
+        function addLineBreaksAfterAmpersands() {
+            // Only target direct children of navPages-list
+            const navItems = document.querySelectorAll('.navPages-list > .navPages-item > .navPages-action');
+            navItems.forEach(item => {
+                if (item.textContent.includes('&')) {
+                    const text = item.textContent;
+                    const splitIndex = text.indexOf('&') + 1;
+                    const firstPart = text.slice(0, splitIndex);
+                    const secondPart = text.slice(splitIndex);
+                    // Preserve the icon if it exists
+                    const icon = item.querySelector('.navPages-action-moreIcon');
+                    // eslint-disable-next-line no-param-reassign
+                    item.innerHTML = `${firstPart}<br>${secondPart}`;
+                    // Add the icon back if it existed
+                    if (icon) {
+                        item.appendChild(icon);
+                    }
+                }
+            });
+        }
 
         // Create and insert buttons
         const buttons = createAlphabetButtons();
@@ -75,9 +83,8 @@ export default function initBrandNavigation() {
             if (!button) return;
 
             // Update active state
-            container.querySelectorAll('.alphabet-letter').forEach(btn => 
-                btn.classList.remove('active')
-            );
+            container.querySelectorAll('.alphabet-letter').forEach(btn =>
+                btn.classList.remove('active'));
             button.classList.add('active');
 
             // Filter brands
@@ -86,6 +93,9 @@ export default function initBrandNavigation() {
 
         // Initial filter
         filterBrands('All');
+
+        // Add line breaks after initialization
+        addLineBreaksAfterAmpersands();
     }
 
     // Initialize on page load and when brands tab is clicked
