@@ -33,6 +33,59 @@
                 {{/if}}
                 </li>
             {{/each}}
+            <li class="navPages-item">
+                <a class="navPages-action has-subMenu" href="/brands/" data-collapsible="navPages-brands" aria-controls="navPages-brands" aria-expanded="false">
+                    Brands
+                    <i class="icon navPages-action-moreIcon" aria-hidden="true">
+                        <svg><use href="#icon-chevron-down"></use></svg>
+                    </i>
+                </a>
+                <div class="navPage-subMenu" id="navPages-brands" aria-hidden="true" tabindex="-1">
+                    <div class="by-brand nav-banner">
+                        <div class="banner-content">
+                            <div class="text-content">
+                                <h2>Shop by Brand</h2>
+                                <p>Explore All Our Brands</p>
+                            </div>
+                            <div class="button button--primary">
+                                <a href="/brands">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="brands-container">
+                        <div class="brands-alphabet"></div>
+                        <div class="brands-list">
+                            <ul class="brand-items">
+                                {{#each shop_by_brand}}
+                                    <li data-brand-name="{{name}}">
+                                        <a href="{{url}}">{{name}}</a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="featured-brands" aria-labelledby="featuredBrandsTitle">
+                            <h3 id="featuredBrandsTitle">Featured Brands</h3>
+                            <div class="featured-brands-grid" role="list" aria-label="Featured Brands">
+                                <div class="featured-brand" role="listitem">
+                                    <a href="/151/" aria-label="151 brand">
+                                        <img src="/product_images/uploaded_images/151.jpg" alt="151 brand logo" onerror="this.parentElement.innerHTML='151'">
+                                    </a>
+                                </div>
+                                <div class="featured-brand" role="listitem">
+                                    <a href="/ronseal/" aria-label="Ronseal brand">
+                                        <img src="/product_images/uploaded_images/ronseal.jpg" alt="Ronseal" onerror="this.parentElement.innerHTML='Ronseal'">
+                                    </a>
+                                </div>
+                                <div class="featured-brand" role="listitem">
+                                    <a href="/yankee-candle/" aria-label="Yankee Candle brand">
+                                        <img src="/product_images/uploaded_images/yankee-candle.jpg" alt="Yankee Candle" onerror="this.parentElement.innerHTML='Yankee Candle'">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
 
         <div class="nav-sale nav-banner">

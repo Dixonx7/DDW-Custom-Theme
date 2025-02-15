@@ -34,20 +34,21 @@
             <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu">
                 <span class="mobileMenu-toggleIcon">Toggle menu</span>
             </a>
-            <button class="navUser-action navUser-action--quickSearch search-icon" type="button" id="quick-search-expand" data-search="quickSearch" aria-controls="quickSearch" aria-label="Search" aria-expanded="false">
-                <svg><use xlink:href="#icon-search"></use></svg>
-            </button>
-            <li class="navUser-item">
-                <button class="navUser-action navUser-action--quickSearch search-icon"
-                   type="button"
-                   id="quick-search-expand"
-                   data-search="quickSearch"
-                   aria-controls="quickSearch"
-                   aria-label="{{lang 'common.search'}}"
-                >
-                <svg><use xlink:href="#icon-search"></use></svg>
+            <div class="header-search">
+                <form class="form header-search-form" action="{{urls.search}}">
+                    <fieldset class="form-fieldset">
+                        <div class="form-field">
+                            <input class="form-input" type="search" name="search_query" placeholder="Search..." autocomplete="off">
+                            <button type="submit" class="button button--primary">
+                                <svg><use xlink:href="#icon-search"></use></svg>
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+                <button class="navUser-action navUser-action--quickSearch search-icon mobile-search" type="button" id="quick-search-expand" data-search="quickSearch" aria-controls="quickSearch" aria-label="Search" aria-expanded="false">
+                    <svg><use xlink:href="#icon-search"></use></svg>
                 </button>
-            </li>
+            </div>
             {{#if page_type '===' 'default'}}
                 <h1 class="header-logo header-logo--{{theme_settings.logo-position}}">
                     {{> components/common/store-logo}}
@@ -57,9 +58,31 @@
                     {{> components/common/store-logo}}
                 </div>
             {{/if}}
-            <a href="{{urls.account.index}}" class="account-icon" aria-label="{{lang 'common.account'}}">
-                <svg><use xlink:href="#icon-account"></use></svg>
-            </a>
+            <div class="account-wrapper">
+                <a href="{{urls.account.index}}" class="account-icon" aria-label="{{lang 'common.account'}}">
+                    <svg><use xlink:href="#icon-account"></use></svg>
+                </a>
+                <div class="account-links">
+                    {{#if customer}}
+                        <a class="navUser-action" href="{{urls.account.index}}" aria-label="{{lang 'common.account'}}">
+                            {{lang 'common.account'}}
+                        </a>
+                        <a class="navUser-action" href="{{urls.auth.logout}}" aria-label="{{lang 'common.logout'}}">
+                            {{lang 'common.logout'}}
+                        </a>
+                    {{else}}
+                        <a class="navUser-action" href="{{urls.auth.login}}" aria-label="{{lang 'common.login'}}">
+                            {{lang 'common.login'}}
+                        </a>
+                        {{#if settings.account_creation_enabled}}
+                            <span class="navUser-or">{{lang 'common.or'}}</span>
+                            <a class="navUser-action" href="{{urls.auth.create_account}}" aria-label="{{lang 'common.sign_up'}}">
+                                {{lang 'common.sign_up'}}
+                            </a>
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </div>
             <li class="navUser-item navUser-item--cart">
                 <a class="navUser-action basket-icon"
                    data-cart-preview
@@ -88,7 +111,24 @@
     </div>
     {{{region name="header_navigation_bottom--global"}}}
     <div class="header-usp">
-        <div class="carousel" data-slick='{"autoplay": true, "autoplaySpeed": 5000, "dots": false, "arrows": false, "infinite": true, "fade": true}'>
+        <div class="usp-slider"
+            data-slick='{
+                "infinite": true,
+                "mobileFirst": true,
+                "arrows": false,
+                "dots": false,
+                "slidesToShow": 1,
+                "slidesToScroll": 1,
+                "autoplay": true,
+                "autoplaySpeed": 5000,
+                "fade": true,
+                "responsive": [
+                    {
+                        "breakpoint": 800,
+                        "settings": "unslick"
+                    }
+                ]
+            }'>
             <div class="usp-item">
                 <span class="usp-icon">
                     <svg><use xlink:href="#icon-truck"></use></svg>
@@ -96,15 +136,19 @@
                 </span>
                 Free Shipping On Orders Over £50
             </div>
-            <div class="usp-item"><span class="usp-icon">
-                <svg><use xlink:href="#icon-shop"></use></svg>
-            </span>Family Run Since 1959</div>
             <div class="usp-item">
                 <a href="https://uk.trustpilot.com/review/ddwonline.co.uk" target="_blank" rel="noopener noreferrer">
                     <svg><use xlink:href="#icon-trustpilot-logo"></use></svg>
                     <svg><use xlink:href="#icon-trustpilot-5star"></use></svg>
                 </a>
             </div>
+            <div class="usp-item">
+                <span class="usp-icon">
+                    <svg><use xlink:href="#icon-shop"></use></svg>
+                </span>
+                Family Run Since 1959
+            </div>
+            
         </div>
     </div>
 </header>

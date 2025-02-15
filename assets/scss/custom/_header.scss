@@ -8,9 +8,7 @@
         margin: 0;
     }
 
-    .header-logo-image {
-        max-height: unset;
-    }
+    
 
     .header-logo__link {
         width: 100%;
@@ -101,6 +99,11 @@
         justify-content: space-between;
         align-items: center;
         color: #fff;
+        
+
+        @media (min-width: 801px) {
+            margin: 0 4rem; // Larger margins on desktop
+        }
 
         .mobileMenu-toggle,
         .search-icon,
@@ -117,9 +120,28 @@
             }
         }
 
+        .mobileMenu-toggle {
+            @media (min-width: 801px) {
+                display: none; // Hide mobile menu on desktop
+            }
+        }
+
         .header-logo {
             flex: 0 0 50%; // Set flex basis to 50%
             text-align: center;
+
+            @media (min-width: 801px) {
+                text-align: left; // Align logo to left on desktop
+                margin-left: 0; // Remove any left margin
+                padding-left: 0; // Remove any left padding
+                order: -1; // Move to start of flex container
+                flex: 0 0 30%; // Reduce logo width to 30%
+
+                .header-logo-image-container {
+                    min-height: auto;
+                    margin: 1rem;
+                }
+            }
         }
 
         .navUser-item--cart {
@@ -142,6 +164,139 @@
                 margin: 0;
             }
         }
+
+        .header-search {
+            flex: 0 0 10%; // Default for mobile
+            
+            @media (min-width: 801px) {
+                flex: 0 0 40%; // Increase search width
+            }
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .header-search-form {
+                display: none;
+                width: 100%;
+                margin: 0; // Remove margin from form
+
+                @media (min-width: 801px) {
+                    display: block;
+                }
+                .form   {
+                    margin: 0;
+                }
+                .form-fieldset {
+                    margin: 0;
+                    padding: 0; // Add this to ensure no padding either
+                }
+
+                .form-field {
+                    margin: 0;
+                    position: relative;
+                    
+                    .form-input {
+                        padding: 0.5rem 3rem 0.5rem 1rem;
+                        height: 2.75rem;
+                        border: 2px solid #333a40;
+                        border-radius: 4px;
+                        font-size: 0.9rem;
+                        font-weight: 500;
+                        color: #333a40;
+                        transition: all 0.2s ease;
+                        width: 100%;
+
+                        &:focus {
+                            border-color: #fb8500;
+                            outline: none;
+                            box-shadow: 0 0 0 2px rgba(251, 133, 0, 0.1);
+                        }
+
+                        &::placeholder {
+                            color: #757575;
+                            font-weight: 400;
+                        }
+                    }
+
+                    .button {
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        height: 2.75rem;
+                        width: 2.75rem;
+                        padding: 0;
+                        border: none;
+                        background: #333a40;
+                        border-radius: 0 4px 4px 0;
+                        transition: all 0.2s ease;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        
+                        svg {
+                            width: 1.2rem;
+                            height: 1.2rem;
+                            fill: #ffffff;
+                        }
+
+                        &:hover {
+                            background: #fb8500;
+                        }
+                    }
+                }
+            }
+
+            .mobile-search {
+                @media (min-width: 801px) {
+                    display: none;
+                }
+            }
+        }
+
+        .header-right {
+            @media (min-width: 801px) {
+                flex: 0 0 30%; // Give right section remaining space
+                justify-content: flex-end;
+            }
+        }
+
+        .account-wrapper {
+            display: flex;
+            align-items: center;
+
+            .account-icon {
+                display: flex;
+                align-items: center;
+            }
+
+            .account-links {
+                display: none; // Hidden by default on mobile
+
+                @media (min-width: 801px) {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin-left: 0.5rem;
+
+                    .navUser-action {
+                        color: #333a40;
+                        text-decoration: none;
+                        font-size: 0.875rem;
+                        white-space: nowrap;
+
+                        &:hover {
+                            color: #fb8500;
+                        }
+                    }
+
+                    .navUser-or {
+                        color: #757575;
+                        font-size: 0.875rem;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -149,52 +304,100 @@
     background-color: #f8f8f8;
     padding: 0.2em 0;
     border-bottom: 2px solid #cccccc;
-    .carousel {
-        .usp-item {
-            text-align: center;
-            white-space: nowrap;
+    position: relative;
+    z-index: 1; // Lower z-index to keep behind dropdowns
+
+    .usp-slider {
+        max-width: 1200px;
+        margin: 0 auto;
+        
+        @media (min-width: 801px) {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+
+            .usp-item {
+                opacity: 1 !important; // Force opacity
+                position: relative !important; // Override Slick positioning
+                left: auto !important; // Override Slick positioning
+                top: auto !important; // Override Slick positioning
+                transform: none !important; // Override Slick transforms
+                transition: none !important; // Disable transitions
+                z-index: 1 !important; // Force lower z-index on desktop
+            }
+            
+            &.slick-initialized {
+                display: flex;
+                
+                .slick-track {
+                    display: flex;
+                    width: 100% !important;
+                    transform: none !important;
+                }
+            }
+        }
+    }
+
+    .usp-item {
+        text-align: center;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.5em;
+        font-weight: 900;
+        font-size: 1rem;
+        padding: 0 10px;
+
+        @media (min-width: 801px) {
+            flex: 1;
+        }
+
+        .usp-icon {
+            position: relative;
+            display: inline-block;
+            margin-right: 5px;
+            
+            svg {
+                color: #fb8500;
+                width: 3em;
+                height: 3em;
+                object-fit: cover;
+            }
+
+            .usp-text {
+                position: absolute;
+                top: 40%;
+                left: 67%;
+                transform: translate(-50%, -50%);
+                color: #fff;
+                font-weight: bold;
+                font-size: 0.7em;
+                font-family: 'Roboto', sans-serif;
+            }
+        }
+
+        a {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 2.5em; // Ensure all USP items are the same height
-            font-weight: 900;
-            font-size: 1rem;
-            .usp-icon {
-                position: relative;
-                display: inline-block;
-                margin-right: 5px;
-                
-                svg {
-                    color: #fb8500;
-                    width: 3em; // Adjust the size to match the text
-                    height: 3em; // Adjust the size to match the text
-                    object-fit: cover; // Crop the SVG
-                }
 
-                .usp-text {
-                    position: absolute;
-                    top: 40%;
-                    left: 67%;
-                    transform: translate(-50%, -50%);
-                    color: #fff;
-                    font-weight: bold;
-                    font-size: 0.7em;
-                    font-family: 'Roboto', sans-serif;
-                }
+            svg {
+                margin: 0 5px;
+                width: 8em;
+                height: 8em;
+                object-fit: cover;
             }
+        }
+    }
+}
 
-            a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    margin: 0 5px;
-                    width: 8em; // Adjust the size to match the text
-                    height: 8em; // Adjust the size to match the text
-                    object-fit: cover; // Crop the SVG
-                }
-            }
+@media (max-width: 768px) {
+    // Initialize Slick carousel only on mobile
+    .header-usp .usp-container {
+        &:not(.slick-initialized) {
+            display: none;
         }
     }
 }
@@ -279,6 +482,26 @@
     .selling_point_one span,
     .selling_point_two span {
         font-size: 0.9rem; // Adjust font size for small screens
+    }
+}
+
+@media (max-width: 800px) {
+    .header-usp .usp-slider:not(.slick-initialized) {
+        .usp-item:not(:first-child) {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 801px) {
+    .navPages-list {
+        .navPages-item {
+            .navPage-subMenu {
+                &#navPages-brands {
+                    z-index: 50; // Higher z-index to appear above USP banner
+                }
+            }
+        }
     }
 }
 
