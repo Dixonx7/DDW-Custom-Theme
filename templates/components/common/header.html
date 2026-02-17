@@ -105,52 +105,58 @@
             {{> components/common/quick-search name='nav-quick-search'}}
         </div>
     </div>
-    <!-- {{> components/common/navigation}} -->
-    <div class="navPages-container" id="menu" data-menu>
-        {{> components/common/navigation-menu}}
-    </div>
-    {{{region name="header_navigation_bottom--global"}}}
-    <div class="header-usp">
-        <div class="usp-slider"
-            data-slick='{
-                "infinite": true,
-                "mobileFirst": true,
-                "arrows": false,
-                "dots": false,
-                "slidesToShow": 1,
-                "slidesToScroll": 1,
-                "autoplay": true,
-                "autoplaySpeed": 5000,
-                "fade": true,
-                "responsive": [
-                    {
-                        "breakpoint": 800,
-                        "settings": "unslick"
-                    }
-                ]
-            }'>
-            <div class="usp-item">
-                <span class="usp-icon">
-                    <svg><use xlink:href="#icon-truck"></use></svg>
-                    <span class="usp-text">FREE</span>
-                </span>
-                Free Shipping On Orders Over £50
+    <!-- Create a wrapper for both nav and USP banner -->
+    <div class="nav-usp-wrapper">
+        <!-- Navigation menu -->
+        <div class="navPages-container" id="menu" data-menu>
+            {{> components/common/navigation-menu}}
+        </div>
+        
+        <!-- USP banner -->
+        <div class="header-usp">
+            <div class="usp-slider"
+                data-slick='{
+                    "infinite": true,
+                    "mobileFirst": true,
+                    "arrows": false,
+                    "dots": false,
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "autoplay": true,
+                    "autoplaySpeed": 5000,
+                    "fade": true,
+                    "responsive": [
+                        {
+                            "breakpoint": 800,
+                            "settings": "unslick"
+                        }
+                    ]
+                }'>
+                <div class="usp-item">
+                    <span class="usp-icon">
+                        <svg><use xlink:href="#icon-truck"></use></svg>
+                        <span class="usp-text">FREE</span>
+                    </span>
+                    Free Shipping On Orders Over £50
+                </div>
+                <div class="usp-item">
+                    <a href="https://uk.trustpilot.com/review/ddwonline.co.uk" target="_blank" rel="noopener noreferrer">
+                        <svg><use xlink:href="#icon-trustpilot-logo"></use></svg>
+                        <svg><use xlink:href="#icon-trustpilot-5star"></use></svg>
+                    </a>
+                </div>
+                <div class="usp-item">
+                    <span class="usp-icon">
+                        <svg><use xlink:href="#icon-shop"></use></svg>
+                    </span>
+                    Family Run Since 1959
+                </div>
+                
             </div>
-            <div class="usp-item">
-                <a href="https://uk.trustpilot.com/review/ddwonline.co.uk" target="_blank" rel="noopener noreferrer">
-                    <svg><use xlink:href="#icon-trustpilot-logo"></use></svg>
-                    <svg><use xlink:href="#icon-trustpilot-5star"></use></svg>
-                </a>
-            </div>
-            <div class="usp-item">
-                <span class="usp-icon">
-                    <svg><use xlink:href="#icon-shop"></use></svg>
-                </span>
-                Family Run Since 1959
-            </div>
-            
         </div>
     </div>
+    
+    {{{region name="header_navigation_bottom--global"}}}
 </header>
 {{{region name="header_bottom--global"}}}
 {{{region name="header_bottom"}}}

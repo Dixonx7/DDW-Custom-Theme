@@ -1103,3 +1103,17 @@ ol.breadcrumbs{
         }
     }
 }
+
+@media (min-width: 1024px) {
+
+    section.product-title {
+        clear: right;
+        float: right;
+        width: 50%;
+        padding-top: 1rem;
+    }
+
+    .socialLinks,.link-details{
+        display: none;
+    }
+}

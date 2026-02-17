@@ -1,0 +1,50 @@
+[data-content-region="header_bottom"] {
+    margin-top: 6rem;
+    @media (min-width: 800px) {
+        margin-top: 1rem;
+        
+    }
+}
+.category-banner {
+    width: 100%;
+    z-index: 1; // Ensure proper stacking context
+
+    .category-banner-image {
+        width: 100%;
+        
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            @media (min-width: 801px) {
+                max-height: 300px;
+            }
+        }
+    }
+
+    .category-banner-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(250, 249, 246, 0.9); // Off-white with opacity
+        padding: 0.5rem;
+        text-align: center;
+        min-width: 280px;
+        
+        @media (min-width: 801px) {
+            min-width: 400px;
+            padding: 2rem 3rem;
+        }
+    }
+
+    .category-banner-title {
+        margin: 0;
+        color: #333;
+        font-size: 1.5rem;
+        
+        @media (min-width: 801px) {
+            font-size: 2rem;
+        }
+    }
+}

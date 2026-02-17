@@ -1,10 +1,10 @@
 .previewCartWrapper {
+    // Mobile positioning (default)
     position: fixed;
-    top: 6rem; // Changed from 0 to 6rem
+    top: 6rem;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1000;
     background: #fff;
     padding: 1.5rem;
     overflow-y: auto;
@@ -13,7 +13,22 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    border-top: 2px solid #fb8500; // Added border to visually separate from header
+    border-top: 2px solid #fb8500;
+
+    // Desktop positioning
+    // Desktop positioning
+    @media (min-width: 768px) {
+        position: absolute;
+        top: 100%;
+        left: auto;
+        bottom: auto;
+        width: 400px;
+        max-height: 600px;
+        border: 2px solid #fb8500;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(10px);
+    }
 
     .close-preview {
         position: absolute;
@@ -162,15 +177,30 @@
     }
 }
 
-// Animation classes
+// Animation classes - adjust for mobile/desktop differently
 .previewCart-entering {
     transform: translateX(100%);
+    
+    @media (min-width: 768px) {
+        transform: translateY(0);
+        opacity: 0;
+    }
 }
 
 .previewCart-entered {
     transform: translateX(0);
+    
+    @media (min-width: 768px) {
+        transform: translateY(10px);
+        opacity: 1;
+    }
 }
 
 .previewCart-exiting {
     transform: translateX(100%);
+    
+    @media (min-width: 768px) {
+        transform: translateY(0);
+        opacity: 0;
+    }
 }

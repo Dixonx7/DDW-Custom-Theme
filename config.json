@@ -69,7 +69,7 @@
     "show_channels": false,
     "hide_breadcrumbs": false,
     "hide_page_heading": false,
-    "hide_category_page_heading": false,
+    "hide_category_page_heading": true,
     "hide_blog_page_heading": false,
     "hide_contact_us_page_heading": false,
     "homepage_new_products_count": 5,
@@ -114,7 +114,7 @@
     "logo-position": "center",
     "logo_size": "250x100",
     "logo_fontSize": 28,
-    "brand_size": "190x250",
+    "brand_size": "150x150",
     "gallery_size": "300x300",
     "productgallery_size": "500x500",
     "product_size": "500x500",
@@ -324,7 +324,7 @@
     "optimizedCheckout-loadingToaster-textColor": "#ffffff",
     "optimizedCheckout-link-hoverColor": "#e67300",
     "product_sale_badges": "sash",
-    "phone_number":"01723 512001",
+    "phone_number": "01723 512001",
     "color_badge_product_sale_badges": "#fb8500",
     "color_text_product_sale_badges": "#ffffff",
     "color_hover_product_sale_badges": "#000000",
@@ -415,7 +415,7 @@
     "cart": false,
     "bulk_discount_rates": false,
     "shop_by_brand": {
-      "limit": 10
+      "limit": 999
     }
   },
   "variations": [
@@ -438,7 +438,14 @@
         ]
       },
       "images": {},
-      "settings": {}
+      "settings": {
+        "paymentbuttons-provider-sorting": [
+          "paypal",
+          "paypal-credit",
+          "sepa",
+          "applepay"
+        ]
+      }
     },
     {
       "name": "Bold",

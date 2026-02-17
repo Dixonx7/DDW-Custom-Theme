@@ -162,7 +162,10 @@
                 height: 1.5em;
                 width: 1.5em;
                 margin: 0;
+            @media (min-width: 801px) {
+                left: 1.1rem;
             }
+                }
         }
 
         .header-search {
@@ -305,7 +308,6 @@
     padding: 0.2em 0;
     border-bottom: 2px solid #cccccc;
     position: relative;
-    z-index: 1; // Lower z-index to keep behind dropdowns
 
     .usp-slider {
         max-width: 1200px;
@@ -324,7 +326,6 @@
                 top: auto !important; // Override Slick positioning
                 transform: none !important; // Override Slick transforms
                 transition: none !important; // Disable transitions
-                z-index: 1 !important; // Force lower z-index on desktop
             }
             
             &.slick-initialized {
@@ -503,6 +504,35 @@
             }
         }
     }
+}
+
+// Nav and USP wrapper styles - create proper stacking context
+.nav-usp-wrapper {
+    position: relative;
+    
+    // Navigation has higher z-index within wrapper
+    .navPages-container {
+        position: relative;
+        z-index: 20; // Higher than USP
+        border-bottom: 2px solid rgb(204, 204, 204)
+    }
+    
+    // USP has lower z-index within wrapper
+    .header-usp {
+        position: relative;
+        z-index: 10; // Lower than navigation
+    }
+}
+
+// Cart needs to be above everything
+.navUser-item--cart {
+    position: relative;
+    z-index: 50; // Higher than nav but lower than cart preview
+}
+
+// Dropdown menu needs to be above everything else
+#cart-preview-dropdown {
+    z-index: 1000 !important; // Much higher than everything else
 }
 
 
