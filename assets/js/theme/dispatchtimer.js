@@ -1,182 +1,233 @@
-class DispatchTimer {
-    constructor() {
-        this.holidays = [
-            new Date(2025, 3, 18), // Good Friday
-            new Date(2025, 3, 21), // Easter Monday
-            new Date(2025, 4, 5),  // Early May Bank Holiday
-            new Date(2025, 4, 26), // Spring Bank Holiday
-            new Date(2025, 7, 25), // Summer Bank Holiday
-            new Date(2025, 11, 24), // Christmas Eve
-            new Date(2025, 11, 25), // Christmas Day
-            new Date(2025, 11, 26), // Boxing Day
-            new Date(2025, 11, 31), // New Year's Eve
-            new Date(2026, 0, 1),   // New Year's Day
-            new Date(2026, 3, 3),   // Good Friday
-            new Date(2026, 3, 6),   // Easter Monday
-            new Date(2026, 4, 4),   // Early May Bank Holiday
-            new Date(2026, 4, 25),  // Spring Bank Holiday
-            new Date(2026, 7, 31),  // Summer Bank Holiday
-            new Date(2026, 11, 24), // Christmas Eve
-            new Date(2026, 11, 25), // Christmas Day
-            new Date(2026, 11, 28), // Boxing Day (substitute day)
-        ];
+(function (window) {
+  'use strict';
+
+  // Constructor function (ES5)
+  function DDWDispatchTimer(opts) {
+    opts = opts || {};
+
+    // Holiday list (local dates) - keep/update as needed
+    this.holidays = opts.holidays || [
+      new Date(2025, 3, 18), new Date(2025, 3, 21), new Date(2025, 4, 5),
+      new Date(2025, 4, 26), new Date(2025, 7, 25), new Date(2025, 11, 24),
+      new Date(2025, 11, 25), new Date(2025, 11, 26), new Date(2025, 11, 31),
+      new Date(2026, 0, 1), new Date(2026, 3, 3), new Date(2026, 3, 6),
+      new Date(2026, 4, 4), new Date(2026, 4, 25), new Date(2026, 7, 31),
+      new Date(2026, 11, 24), new Date(2026, 11, 25), new Date(2026, 11, 28)
+    ];
+
+    // Flat customer-facing lead time window
+    this.courierMin = typeof opts.courierMin === 'number' ? opts.courierMin : 4;
+    this.courierMax = typeof opts.courierMax === 'number' ? opts.courierMax : 6;
+
+    // DOM ids / selectors
+    this.selectors = {
+      countdown: opts.countdownId || 'express-timer',
+      estimateShort: opts.estimateId || 'standard-delivery-estimate',
+      dispatchDate: opts.dispatchDateId || 'dispatch-date',
+      timerDeliveryEstimate: opts.timerDeliveryEstimateId || 'timer-delivery-estimate',
+      estimateAccordion: opts.estimateAccordionId || 'ddw-estimate-accordion',
+      trackedNote: opts.trackedNoteId || 'ddw-tracked-note'
+    };
+
+    // Whether to automatically show a tracked-note when lead-time >= threshold (business days)
+    this.trackedThreshold = typeof opts.trackedThreshold === 'number' ? opts.trackedThreshold : 2;
+
+    // Interval handles
+    this._interval = null;
+  }
+
+  // ---------- helpers ----------
+  DDWDispatchTimer.prototype._isSameDate = function(a, b) {
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  };
+
+  DDWDispatchTimer.prototype._isHoliday = function(date) {
+    var self = this;
+    for (var i = 0; i < self.holidays.length; i++) {
+      if (self._isSameDate(self.holidays[i], date)) return true;
+    }
+    return false;
+  };
+
+  DDWDispatchTimer.prototype._isBusinessDay = function(date) {
+    var dow = date.getDay(); // 0 Sun .. 6 Sat
+    return dow > 0 && dow < 6 && !this._isHoliday(date);
+  };
+
+  DDWDispatchTimer.prototype._nextBusinessDay = function(date) {
+    var nd = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    nd.setDate(nd.getDate() + 1);
+    while (!this._isBusinessDay(nd)) {
+      nd.setDate(nd.getDate() + 1);
+    }
+    return nd;
+  };
+
+  DDWDispatchTimer.prototype._toDateOnly = function(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  };
+
+  DDWDispatchTimer.prototype._ensureBusinessDay = function(date) {
+    var d = this._toDateOnly(date);
+    while (!this._isBusinessDay(d)) {
+      d.setDate(d.getDate() + 1);
+    }
+    return d;
+  };
+
+  // Add n business days to a date (n >= 0)
+  DDWDispatchTimer.prototype._addBusinessDays = function(date, n) {
+    var result = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    while (n > 0) {
+      result.setDate(result.getDate() + 1);
+      if (this._isBusinessDay(result)) n--;
+    }
+    return result;
+  };
+
+  // Format friendly UK date, e.g. "Wed 6 Mar"
+  DDWDispatchTimer.prototype._formatNice = function(date) {
+    try {
+      return date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    } catch (e) {
+      // fallback
+      return date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+    }
+  };
+
+  // Format countdown with seconds
+  DDWDispatchTimer.prototype._formatCountdown = function(ms) {
+    if (ms <= 0) return '00s';
+    var s = Math.floor(ms / 1000);
+    var days = Math.floor(s / 86400);
+    s = s % 86400;
+    var hh = Math.floor(s / 3600);
+    s = s % 3600;
+    var mm = Math.floor(s / 60);
+    var ss = s % 60;
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+    if (days > 0) return days + 'd ' + pad(hh) + 'h ' + pad(mm) + 'm ' + pad(ss) + 's';
+    if (hh > 0) return hh + 'h ' + pad(mm) + 'm ' + pad(ss) + 's';
+    return mm + 'm ' + pad(ss) + 's';
+  };
+
+  // ---------- core logic ----------
+  // Daily customer-facing cutoff is 9:00 PM local time
+  DDWDispatchTimer.prototype.getCurrentCutoff = function(now) {
+    now = now || new Date();
+    var cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0);
+
+    if (now.getTime() < cutoff.getTime()) return cutoff;
+
+    cutoff.setDate(cutoff.getDate() + 1);
+    return cutoff;
+  };
+
+  DDWDispatchTimer.prototype.getOrderBaseDate = function(now) {
+    now = now || new Date();
+    var cutoffToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0);
+    var base = this._toDateOnly(now);
+
+    if (now.getTime() >= cutoffToday.getTime()) {
+      base.setDate(base.getDate() + 1);
     }
 
-    isHoliday(date) {
-        return this.holidays.some(holiday =>
-            date.getFullYear() === holiday.getFullYear() &&
-            date.getMonth() === holiday.getMonth() &&
-            date.getDate() === holiday.getDate()
-        );
+    return this._ensureBusinessDay(base);
+  };
+
+  // ---------- DOM update ----------
+  DDWDispatchTimer.prototype._updateDOM = function() {
+    var now = new Date();
+    var orderBaseDate = this.getOrderBaseDate(now);
+
+    var deliveryStart = this._addBusinessDays(orderBaseDate, this.courierMin);
+    var deliveryEnd = this._addBusinessDays(orderBaseDate, this.courierMax);
+
+    var estimateText = this.courierMin + '–' + this.courierMax + ' working days';
+    var estimateDatesText = this._formatNice(deliveryStart) + ' - ' + this._formatNice(deliveryEnd);
+
+    // get cutoff for countdown
+    var cutoff = this.getCurrentCutoff(now);
+    var millis = cutoff.getTime() - now.getTime();
+
+    // DOM elements (graceful)
+    var countdownEl = document.getElementById(this.selectors.countdown) || document.getElementById('ddw-countdown');
+    var estimateShortEl = document.getElementById(this.selectors.estimateShort) || document.getElementById('ddw-estimate');
+    var timerDeliveryEstimateEl = document.getElementById(this.selectors.timerDeliveryEstimate);
+    var estimateAccordionEl = document.getElementById(this.selectors.estimateAccordion);
+    var trackedNoteEl = document.getElementById(this.selectors.trackedNote);
+
+    if (countdownEl) countdownEl.textContent = this._formatCountdown(millis);
+    if (estimateShortEl) estimateShortEl.textContent = estimateText;
+    if (timerDeliveryEstimateEl) timerDeliveryEstimateEl.textContent = estimateDatesText;
+    if (estimateAccordionEl) estimateAccordionEl.textContent = estimateText + ' (' + estimateDatesText + ')';
+    if (trackedNoteEl) {
+      if (this.courierMin >= this.trackedThreshold) {
+        trackedNoteEl.style.display = '';
+      } else {
+        trackedNoteEl.style.display = 'none';
+      }
+    }
+  };
+
+  // Start the periodic updates
+  DDWDispatchTimer.prototype.startTimer = function() {
+    var self = this;
+    // avoid double intervals
+    if (self._interval) return;
+
+    // initial attempt: if DOM not ready, wait and retry once
+    function initOnce() {
+      // If the primary elements aren't present, we still want to start but we will keep retrying
+      // _updateDOM is safe to call even if elements are missing
+      self._updateDOM();
+      // refresh every second (countdown); coarse date updates also run each second but are cheap
+      self._interval = setInterval(function() { self._updateDOM(); }, 1000);
     }
 
-    isBusinessDay(date) {
-        const dayOfWeek = date.getUTCDay();
-        return dayOfWeek > 0 && dayOfWeek < 6;
+    // If DOM already ready
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      initOnce();
+    } else {
+      document.addEventListener('DOMContentLoaded', initOnce);
     }
+  };
 
-    nextBusinessDay(date) {
-        let nextDay = new Date(date);
-        nextDay.setUTCDate(date.getUTCDate() + 1);
-
-        while (!this.isBusinessDay(nextDay) || this.isHoliday(nextDay)) {
-            nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-        }
-
-        return nextDay;
+  // Stop timer (if needed)
+  DDWDispatchTimer.prototype.stopTimer = function() {
+    if (this._interval) {
+      clearInterval(this._interval);
+      this._interval = null;
     }
+  };
 
-    countdownToDispatch() {
-        const now = new Date();
-        let dispatchDate;
+  // ---------- attach to window ----------
+  window.DDWDispatchTimer = DDWDispatchTimer;
 
-        if (now.getHours() < 14 && this.isBusinessDay(now) && !this.isHoliday(now)) {
-            dispatchDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 0, 0, 0);
-        } else {
-            dispatchDate = this.nextBusinessDay(now);
-            dispatchDate.setHours(14, 0, 0, 0);
-        }
-
-        const timeUntilDispatch = dispatchDate.getTime() - now.getTime();
-        const hours = Math.floor((timeUntilDispatch % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeUntilDispatch % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeUntilDispatch % (1000 * 60)) / 1000);
-
-        return `${hours}h ${minutes}m ${seconds}s`.trim();
+  // create singleton if not present and auto-start
+  try {
+    if (!window.dispatchTimer) {
+      window.dispatchTimer = new DDWDispatchTimer();
+      // auto-start by default
+      if (typeof window.dispatchTimer.startTimer === 'function') {
+        window.dispatchTimer.startTimer();
+      }
     }
+  } catch (e) {
+    // fail silently - we don't want to break page rendering
+    /* eslint-disable no-console */
+    if (window.console && window.console.error) window.console.error('DDWDispatchTimer init failed', e);
+    /* eslint-enable no-console */
+  }
 
-    ordinalSuffix(day) {
-        const j = day % 10, k = day % 100;
-        if (j === 1 && k !== 11) return day + "st";
-        if (j === 2 && k !== 12) return day + "nd";
-        if (j === 3 && k !== 13) return day + "rd";
-        return day + "th";
-    }
+}(window));
 
-    setOrderArrivalDate() {
-        const now = new Date();
-        let dispatchDate = (now.getHours() < 14 && this.isBusinessDay(now) && !this.isHoliday(now)) ? now : this.nextBusinessDay(now);
+var dispatchTimerSingleton = window.dispatchTimer;
 
-        const formattedDate = dispatchDate.toLocaleDateString("en-GB", { weekday: 'short', day: 'numeric', month: 'short' });
-        const finalDispatchDateString = `${formattedDate.split(' ')[0]} ${this.ordinalSuffix(parseInt(formattedDate.split(' ')[1]))} ${formattedDate.split(' ')[2]}`;
-
-        const dispatchDateElement = document.getElementById("dispatch-date");
-        const deliveryTextElements = document.querySelectorAll(".delivery-text");
-
-        if (dispatchDateElement) dispatchDateElement.textContent = finalDispatchDateString;
-        deliveryTextElements.forEach(el => el.textContent = `Order within the next ${this.countdownToDispatch()} to have your order dispatched by ${finalDispatchDateString}`);
-    }
-
-    startTimer() {
-        const init = () => {
-            console.log('DispatchTimer initializing...'); // Debug log
-            const expressTimerElement = document.querySelector('.express-timer');
-            const expressTimerSpan = document.getElementById('express-timer');
-            const dispatchDateElement = document.getElementById('dispatch-date');
-            const standardDeliveryElement = document.getElementById('standard-delivery-estimate');
-            const expressDeliveryElement = document.getElementById('express-delivery-estimate');
-            
-
-            if (!expressTimerElement || !expressTimerSpan || !dispatchDateElement) {
-                console.log('Required elements not found, retrying...'); // Debug log
-                setTimeout(init, 500); // Retry after 500ms
-                return;
-            }
-
-            console.log('Elements found, starting timer...'); // Debug log
-
-            expressTimerElement.style.display = 'block';
-
-            const updateTimer = () => {
-                const countdownText = this.countdownToDispatch();
-                expressTimerSpan.textContent = countdownText;
-                
-                // Calculate delivery dates
-                const now = new Date();
-                let dispatchDate = (now.getHours() < 14 && this.isBusinessDay(now) && !this.isHoliday(now)) 
-                    ? now 
-                    : this.nextBusinessDay(now);
-
-                // Format dispatch date
-                const formattedDate = dispatchDate.toLocaleDateString("en-GB", { 
-                    weekday: 'short', 
-                    day: 'numeric', 
-                    month: 'short'
-                });
-                const finalDispatchDateString = formattedDate; // This will give "Thu, 6 Feb" format
-                
-                dispatchDateElement.textContent = finalDispatchDateString;
-
-                // Calculate standard delivery (3-4 working days)
-                let standardDate = new Date(dispatchDate);
-                standardDate.setDate(standardDate.getDate() + 3);
-                let standardEndDate = new Date(dispatchDate);
-                standardEndDate.setDate(standardEndDate.getDate() + 4);
-
-                // Calculate express delivery (next working day)
-                let expressDate = this.nextBusinessDay(dispatchDate);
-
-                // Update delivery estimates
-                if (standardDeliveryElement) {
-                    standardDeliveryElement.textContent = `${standardDate.toLocaleDateString("en-GB", { weekday: 'short', day: 'numeric', month: 'short' })} - ${standardEndDate.toLocaleDateString("en-GB", { weekday: 'short', day: 'numeric', month: 'short' })}`;
-                }
-                
-                if (expressDeliveryElement) {
-                    expressDeliveryElement.textContent = expressDate.toLocaleDateString("en-GB", { 
-                        weekday: 'short', 
-                        day: 'numeric', 
-                        month: 'short' 
-                    });
-                }
-
-                // Add availability text update
-                const availabilityElement = document.getElementById('availability-text');
-                if (availabilityElement && availabilityElement.parentElement.textContent.includes('Available For Dispatch')) {
-                    const today = new Date();
-                    const tomorrow = new Date(today);
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    
-                    let availabilityText = ' - ';
-                    if (dispatchDate.getDate() === today.getDate()) {
-                        availabilityText += 'Today';
-                    } else if (dispatchDate.getDate() === tomorrow.getDate()) {
-                        availabilityText += 'Tomorrow';
-                    } else {
-                        availabilityText += dispatchDate.toLocaleDateString("en-GB", { weekday: 'long' });
-                    }
-                    availabilityElement.textContent = availabilityText;
-                }
-            };
-
-            updateTimer();
-            setInterval(updateTimer, 1000);
-        };
-
-        // Start initialization
-        init();
-    }
+if (!dispatchTimerSingleton && typeof window.DDWDispatchTimer === 'function') {
+  dispatchTimerSingleton = new window.DDWDispatchTimer();
+  window.dispatchTimer = dispatchTimerSingleton;
 }
 
-// Export a singleton instance
-const dispatchTimer = new DispatchTimer();
-export default dispatchTimer;
+export default dispatchTimerSingleton;
