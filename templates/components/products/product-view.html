@@ -328,11 +328,49 @@
                 
             </dl>
         </div>
-    </section> -->
+    </section>
 
+    <section class="productView-details product-options">
+        <div class="productView-options">
+            {{#if product.release_date }}
+                <p>{{product.release_date}}</p>
+            {{/if}}
+            <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
+                  data-cart-item-add>
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="product_id" value="{{product.id}}"/>
+                {{#if product.cart_order_source}}
+                    <input type="hidden" name="cart_order_source" value="{{product.cart_order_source}}"/>
+                {{/if}}
+                <div data-product-option-change style="display:none;">
+                    {{inject 'showSwatchNames' theme_settings.show_product_swatch_names}}
+                    {{#each product.options}}
+                        {{{dynamicComponent 'components/products/options'}}}
+                    {{/each}}
+                </div>
+                <div class="form-field form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
+                    <label class="form-label form-label--alternate">
+                        {{lang 'products.current_stock'}}
+                        <span data-product-stock>{{product.stock_level}}</span>
+                        {{> components/products/backorder-availability-prompt show_prompt=product.show_backorder_availability_prompt prompt=product.backorder_availability_prompt available_to_sell=product.available_to_sell available_for_backorder=product.available_for_backorder}}
+                    </label>
+                </div>
+                {{> components/products/add-to-cart with_wallet_buttons=true}}
+            </form>
+            {{#if settings.show_wishlist}}
+                {{> components/common/wishlist-dropdown}}
+            {{/if}}
+        </div>
+        {{> components/common/share url=product.url}}
+    </section>
 
-    
-
+    <article class="productView-description">
+        {{#if theme_settings.show_product_details_tabs}}
+            {{> components/products/description-tabs}}
+        {{else}}
+            {{> components/products/description}}
+        {{/if}}
+    </article>
 </div>
 {{#if settings.show_product_reviews}}
     {{#unless is_ajax}}

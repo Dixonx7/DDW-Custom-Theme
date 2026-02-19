@@ -4,22 +4,31 @@ import { insertStateHiddenField } from './utils/form-utils';
 import { showAlertModal } from '../global/modal';
 
 /**
- * If there are no options from bcapp, a text field will be sent. This will create a select element to hold options after the remote request.
- * @returns {jQuery|HTMLElement}
+ * Extracts attributes from a jQuery element into a plain object
+ * @param {jQuery} element - The element to extract attributes from
+ * @returns {Object} Plain object with attribute name-value pairs
  */
-function makeStateRequired(stateElement, context) {
-    const attrs = _.transform(stateElement.prop('attributes'), (result, item) => {
+function getElementAttributes(element) {
+    return _.transform(element.prop('attributes'), (result, item) => {
         const ret = result;
         ret[item.name] = item.value;
         return ret;
     });
+}
+
+/**
+ * Creates a select element for states when the country has states AND they are required
+ * @param {jQuery} stateElement - The current state input element
+ * @param {Object} context - Context object containing translated strings
+ * @returns {jQuery} The new select element
+ */
+function makeStateSelectRequired(stateElement, context) {
+    const attrs = getElementAttributes(stateElement);
 
     const replacementAttributes = {
-        id: attrs.id,
-        'data-label': attrs['data-label'],
+        ...attrs,
         class: 'form-select',
-        name: attrs.name,
-        'data-field-type': attrs['data-field-type'],
+        'aria-required': 'true',
     };
 
     stateElement.replaceWith($('<select></select>', replacementAttributes));
@@ -42,24 +51,46 @@ function makeStateRequired(stateElement, context) {
 }
 
 /**
- * If a country with states is the default, a select will be sent,
- * In this case we need to be able to switch to an input field and hide the required field
+ * Creates a select element for states when the country has states but they are NOT required
+ * @param {jQuery} stateElement - The current state input element
+ * @returns {jQuery} The new select element
  */
-function makeStateOptional(stateElement) {
-    const attrs = _.transform(stateElement.prop('attributes'), (result, item) => {
-        const ret = result;
-        ret[item.name] = item.value;
-
-        return ret;
-    });
+function makeStateSelectOptional(stateElement) {
+    const attrs = getElementAttributes(stateElement);
 
     const replacementAttributes = {
+        ...attrs,
+        class: 'form-select',
+        'aria-required': 'false',
+    };
+
+    stateElement.replaceWith($('<select></select>', replacementAttributes));
+
+    const $newElement = $('[data-field-type="State"]');
+    const $hiddenInput = $('[name*="FormFieldIsText"]');
+
+    if ($hiddenInput.length !== 0) {
+        $hiddenInput.remove();
+    }
+
+    // Hide the required indicator since state is optional
+    $newElement.prev().find('small').hide();
+
+    return $newElement;
+}
+
+/**
+ * Creates a text input for states when the country has no states list
+ * @param {jQuery} stateElement - The current state element
+ * @returns {jQuery} The new text input element
+ */
+function makeStateTextOptional(stateElement) {
+    const attrs = getElementAttributes(stateElement);
+
+    const replacementAttributes = {
+        ...attrs,
         type: 'text',
-        id: attrs.id,
-        'data-label': attrs['data-label'],
         class: 'form-input',
-        name: attrs.name,
-        'data-field-type': attrs['data-field-type'],
     };
 
     stateElement.replaceWith($('<input />', replacementAttributes));
@@ -99,12 +130,59 @@ function addOptions(statesArray, $selectElement, options) {
 }
 
 /**
+ * Makes the zip/postal code field required and shows the required indicator
+ * @param {jQuery} $zipElement The zip/postal code field element
+ * @param {Object} context The context object containing translated strings
+ */
+function makeZipRequired($zipElement, context) {
+    $zipElement.prop('required', true);
+    // since the attribute is set within templates/components/common/forms/*,
+    // we explicitly set aria-required to ensure assistive technologies announce this field correctly after dynamic changes
+    $zipElement.attr('aria-required', 'true');
+
+    if ($zipElement.prev().find('small').length === 0) {
+        $zipElement.prev().append(`<small>${context.required}</small>`);
+    } else {
+        $zipElement.prev().find('small').show();
+    }
+}
+
+/**
+ * Makes the zip/postal code field optional and hides the required indicator
+ *
+ * DOM Structure Expectation:
+ * The function assumes the following DOM structure:
+ * <label>
+ *   <span>Zip/Postal Code</span>
+ *   <small>*</small> <!-- required indicator -->
+ * </label>
+ * <input data-field-type="Zip" />
+ *
+ * @param {jQuery} $zipElement The zip/postal code field element
+ */
+function makeZipOptional($zipElement) {
+    $zipElement.prop('required', false);
+    // since the attribute is set within templates/components/common/forms/*,
+    // we explicitly set aria-required to ensure assistive technologies announce this field correctly after dynamic changes
+    $zipElement.attr('aria-required', false);
+
+    const $prevElement = $zipElement.prev();
+    if ($prevElement.length > 0) {
+        const $requiredIndicator = $prevElement.find('small');
+        if ($requiredIndicator.length > 0) {
+            $requiredIndicator.hide();
+        }
+    }
+}
+
+/**
  *
  * @param {jQuery} stateElement
  * @param {Object} context
  * @param {Object} options
  * @param {Function} callback
  */
+// eslint-disable-next-line default-param-last
 export default function (stateElement, context = {}, options, callback) {
     /**
      * Backwards compatible for three parameters instead of four
@@ -134,18 +212,40 @@ export default function (stateElement, context = {}, options, callback) {
             }
 
             const $currentInput = $('[data-field-type="State"]');
+            const $zipInput = $('[data-field-type="Zip"]');
 
-            if (!_.isEmpty(response.data.states)) {
-                // The element may have been replaced with a select, reselect it
-                const $selectElement = makeStateRequired($currentInput, context);
+            const hasStates = !_.isEmpty(response.data.states);
+            const requiresState = response.data.requiresSubdivision !== undefined
+                ? response.data.requiresSubdivision
+                : hasStates;
 
-                addOptions(response.data, $selectElement, options);
-                callback(null, $selectElement);
+            let $newElement;
+
+            if (hasStates) {
+                if (requiresState) {
+                    $newElement = makeStateSelectRequired($currentInput, context);
+                } else {
+                    $newElement = makeStateSelectOptional($currentInput);
+                }
+                addOptions(response.data, $newElement, options);
             } else {
-                const newElement = makeStateOptional($currentInput, context);
-
-                callback(null, newElement);
+                $newElement = makeStateTextOptional($currentInput);
             }
+
+            if ($zipInput.length > 0) {
+                // Default to true when requiresPostalCodes is undefined to maintain original behavior
+                const requiresZip = response.data.requiresPostalCodes !== undefined
+                    ? response.data.requiresPostalCodes
+                    : true;
+
+                if (requiresZip) {
+                    makeZipRequired($zipInput, context);
+                } else {
+                    makeZipOptional($zipInput);
+                }
+            }
+
+            callback(null, $newElement, requiresState);
         });
     });
 }

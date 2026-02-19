@@ -59,7 +59,9 @@
             "shipping": "Frakt",
             "grand_total": "Totalsum",
             "select": "Velg",
-            "update": "Oppdater fraktkostnad"
+            "update": "Oppdater fraktkostnad",
+            "you_saved": "Du sparte",
+            "in_total": "totalt!"
         },
         "preview": {
             "checkout_now": "Betal nå",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] er ikke en gyldig oppføring",
         "coupon_code": "Kupongkode",
         "discount": "Rabatt",
+        "discounts": "Rabatter",
+        "manual_discount": "Manuell rabatt",
+        "automatic_discount": "Automatisk rabatt",
         "included_in_total": " Inkludert i totalsum",
         "remove_file": "Fjern denne filen",
         "freeshipping": "Gratis frakt",
@@ -80,6 +85,7 @@
         "confirm_delete": "Er du sikker på at du vil slette denne varen?",
         "coupons": {
             "apply_coupon": "Bruk kupong",
+            "apply_coupon_code": "Bruk kupongkoden",
             "empty_error": "Skriv inn kupongkoden din.",
             "cancel": "Avbryt",
             "add_code": "Legg til kode",
@@ -815,7 +821,11 @@
             "range": "Kjøp {min} {max, plural, =0{or above} other {- #}}",
             "percent": "og få {discount} i rabatt",
             "price": "og få {discount} i rabatt",
-            "fixed": "og betal kun {discount} hver"
+            "fixed": "og betal kun {discount} hver",
+            "fixed_both": {
+                "prefix": "og betal kun",
+                "suffix": "hver"
+            }
         },
         "card_default_image_alt": "Bilde kommer snart"
     },

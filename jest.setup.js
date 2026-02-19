@@ -1,5 +1,9 @@
 // Mimics ProvidePlugin configuration for jQuery
-global.$ = global.jQuery = window.jQuery = require('jquery');
+const jquery = require('jquery');
+
+global.$ = jquery;
+global.jQuery = jquery;
+window.jQuery = jquery;
 
 // Foundation requires existing script tag to load properly
 document.getElementsByTagName('head')[0].appendChild(document.createElement('script'));

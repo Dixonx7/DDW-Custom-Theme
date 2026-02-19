@@ -1,7 +1,6 @@
+import $ from 'jquery';
 import collapsibleGroupFactory from '../../../theme/common/collapsible-group';
 import { CollapsibleEvents } from '../../../theme/common/collapsible';
-import $ from 'jquery';
-
 
 describe('CollapsibleGroup', () => {
     let collapsibleGroup;
@@ -50,7 +49,6 @@ describe('CollapsibleGroup', () => {
             expect(collapsibleGroup.openCollapsible).not.toEqual(childCollapsible);
         });
     });
-
 
     describe('when a collapsible is closed', () => {
         let collapsible;

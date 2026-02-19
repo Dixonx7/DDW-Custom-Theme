@@ -59,7 +59,9 @@
             "shipping": "Livraison",
             "grand_total": "Total",
             "select": "Sélectionner",
-            "update": "Mettre à jour les frais de livraison"
+            "update": "Mettre à jour les frais de livraison",
+            "you_saved": "Vous avez économisé",
+            "in_total": "au total !"
         },
         "preview": {
             "checkout_now": "Payer",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] n'est pas une saisie valide",
         "coupon_code": "Code promotionnel",
         "discount": "Remise",
+        "discounts": "Remises",
+        "manual_discount": "Remise manuelle",
+        "automatic_discount": "Réduction automatique",
         "included_in_total": " Inclus dans le total",
         "remove_file": "Supprimer ce fichier",
         "freeshipping": "Livraison gratuite",
@@ -80,6 +85,7 @@
         "confirm_delete": "Voulez-vous vraiment supprimer cet article ?",
         "coupons": {
             "apply_coupon": "Appliquer le code promotionnel",
+            "apply_coupon_code": "Appliquer le code promotionnel",
             "empty_error": "Veuillez saisir votre code promotionnel.",
             "cancel": "Annuler",
             "add_code": "Ajouter un code",
@@ -815,7 +821,11 @@
             "range": "Acheter {min} {max, plural, =0{ou plus} other {- #}}",
             "percent": "et bénéficiez de {discount} de remise",
             "price": "et bénéficiez de {discount} de remise",
-            "fixed": "et ne payez que {discount} l'unité"
+            "fixed": "et ne payez que {discount} l'unité",
+            "fixed_both": {
+                "prefix": "et ne payez que",
+                "suffix": "l'unité"
+            }
         },
         "card_default_image_alt": "Image disponible bientôt"
     },

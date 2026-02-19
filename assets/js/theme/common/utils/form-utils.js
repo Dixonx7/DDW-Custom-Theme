@@ -22,7 +22,6 @@ export const createPasswordValidationErrorTextObject = (empty, confirm, mismatch
     onNotValidPasswordErrorText: invalid,
 });
 
-
 /**
  * Apply class name to an input element on its type
  * @param {object} input
@@ -331,6 +330,33 @@ const Validators = {
                 $fieldClassElement.removeClass(nod.classes[value]);
             }
         });
+    },
+
+    /**
+     * Handles zip/postal code validation based on whether it's required
+     * Removes existing validation, then adds it back if required or cleans up if not
+     * @param {Nod} validator - The nod validator instance
+     * @param {jQuery} $zipElement - The zip/postal code field element
+     * @param {string} errorText - The error message to display if validation fails
+     */
+    handleZipValidation: (validator, $zipElement, errorText) => {
+        if ($zipElement.length === 0) {
+            return;
+        }
+
+        // Always try to remove existing validation first.
+        // Note: Don't use getStatus() before remove() - getStatus() can corrupt the validator's
+        // internal state by creating a checkHandler without a mediator if the element
+        // wasn't previously registered. remove() is safe to call on unregistered elements.
+        validator.remove($zipElement);
+
+        const isZipRequired = $zipElement.prop('required');
+
+        if (isZipRequired) {
+            Validators.setStateCountryValidation(validator, $zipElement, errorText);
+        } else {
+            Validators.cleanUpStateValidation($zipElement);
+        }
     },
 };
 

@@ -1,5 +1,5 @@
-import modalFactory, { ModalEvents } from '../../../theme/global/modal';
 import $ from 'jquery';
+import modalFactory, { ModalEvents } from '../../../theme/global/modal';
 import '../../../theme/global/jquery-migrate';
 
 function attachHtml(html) {

@@ -59,7 +59,9 @@
             "shipping": "Versand",
             "grand_total": "Gesamtsumme",
             "select": "Auswählen",
-            "update": "Versandkosten aktualisieren"
+            "update": "Versandkosten aktualisieren",
+            "you_saved": "Sie haben gespart",
+            "in_total": "Insgesamt!"
         },
         "preview": {
             "checkout_now": "Jetzt Bezahlvorgang abschließen",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] ist keine gültige Eingabe",
         "coupon_code": "Gutschein-Code",
         "discount": "Rabatt",
+        "discounts": "Rabatte",
+        "manual_discount": "Manueller Preisnachlass",
+        "automatic_discount": "Automatischer Rabatt",
         "included_in_total": " Im Gesamtbetrag enthalten",
         "remove_file": "Diese Datei entfernen",
         "freeshipping": "Kostenloser Versand",
@@ -80,6 +85,7 @@
         "confirm_delete": "Möchten Sie diesen Artikel wirklich löschen?",
         "coupons": {
             "apply_coupon": "Coupon anwenden",
+            "apply_coupon_code": "Coupon-Code anwenden",
             "empty_error": "Bitte geben Sie Ihren Gutscheincode ein.",
             "cancel": "Abbrechen",
             "add_code": "Code hinzufügen",
@@ -815,7 +821,11 @@
             "range": "{min} {max, plural, =0{oder höher} other {- #}}",
             "percent": "und erhalten Sie {discount} Rabatt",
             "price": "und erhalten Sie {discount} Rabatt",
-            "fixed": "und zahlen Sie jeweils nur {discount}"
+            "fixed": "und zahlen Sie jeweils nur {discount}",
+            "fixed_both": {
+                "prefix": "und zahlen Sie jeweils nur",
+                "suffix": ""
+            }
         },
         "card_default_image_alt": "Bild in Kürze verfügbar"
     },

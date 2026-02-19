@@ -1,20 +1,16 @@
 import $ from 'jquery';
 import '../../../theme/global/jquery-migrate';
-// import { api } from '@bigcommerce/stencil-utils';
+
 jest.mock('@bigcommerce/stencil-utils');
 import utils from '@bigcommerce/stencil-utils';
 
 const api = utils.api;
-import modalFactory, { alertModal } from '../../../theme/global/modal';
-import foundation from '../../../theme/global/foundation';
+import { alertModal } from '../../../theme/global/modal';
 import stateCountry from '../../../theme/common/state-country';
 
-// console.log(utils);
-// jest.mock('api.country');
-
 describe('StateCountry', () => {
-    let $countryElement,
-        $stateElement;
+    let $countryElement;
+    let $stateElement;
 
     beforeEach(() => {
         $countryElement = $(`
@@ -40,7 +36,7 @@ describe('StateCountry', () => {
     });
 
     describe('on error', () => {
-        let $modalElement,
+        let $modalElement; let
             modal;
 
         beforeEach(() => {
@@ -65,7 +61,7 @@ describe('StateCountry', () => {
         });
 
         it('should show modal', (done) => {
-            stateCountry($stateElement, { state_error: 'Missing' }, {}, (err) => {
+            stateCountry($stateElement, { state_error: 'Missing' }, {}, () => {
                 expect(modal.open).toHaveBeenCalled();
                 done();
             });
@@ -87,6 +83,7 @@ describe('StateCountry', () => {
                         { id: '3', name: 'Byrgius' },
                     ];
                     break;
+                default: break;
                 }
 
                 callback(null, { data: { states } });
@@ -94,7 +91,7 @@ describe('StateCountry', () => {
         });
 
         it('should update states', (done) => {
-            stateCountry($stateElement, {}, {}, (err) => {
+            stateCountry($stateElement, {}, {}, () => {
                 $stateElement.remove();
                 $stateElement = $('[data-field-type="State"]');
                 expect($stateElement.find('option').length).toEqual(4);

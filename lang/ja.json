@@ -59,7 +59,9 @@
             "shipping": "配送",
             "grand_total": "総計",
             "select": "選択",
-            "update": "送料の更新"
+            "update": "送料の更新",
+            "you_saved": "保存しました",
+            "in_total": "合計で！"
         },
         "preview": {
             "checkout_now": "今すぐお支払い",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] は有効なエントリではありません",
         "coupon_code": "クーポンコード",
         "discount": "割引",
+        "discounts": "割引",
+        "manual_discount": "手動割引",
+        "automatic_discount": "自動割引",
         "included_in_total": " 合計に含む",
         "remove_file": "このファイルを削除",
         "freeshipping": "送料無料",
@@ -80,6 +85,7 @@
         "confirm_delete": "このアイテムを削除しますか？",
         "coupons": {
             "apply_coupon": "クーポンを適用する",
+            "apply_coupon_code": "クーポンコードを適用する",
             "empty_error": "クーポンコードを入力してください。",
             "cancel": "キャンセル",
             "add_code": "コードを追加",
@@ -183,7 +189,7 @@
         "paginator": {
             "page_of": "{current}/{total}ページ"
         },
-        "pagination": "Pagination",
+        "pagination": "ページネーション",
         "prices_are_in": "価格は{CODE}内",
         "previous": "前の",
         "next": "次へ",
@@ -709,7 +715,7 @@
             "reviews": {
                 "rating": "[評価]フィールドを空白にすることはできません。",
                 "title": "[レビュー件名] フィールドを空白にすることはできません。",
-                "name": "The 'Name' field cannot be blank.",
+                "name": "「名前」フィールドを空白にすることはできません。",
                 "comment": "[コメント]フィールドを空白にすることはできません。"
             }
         }
@@ -815,7 +821,11 @@
             "range": "購入 {min} {max, plural, =0{or above} other {- #}}",
             "percent": "{discount}割引",
             "price": "{discount}割引",
-            "fixed": "それぞれ{discount}だけを支払う"
+            "fixed": "それぞれ{discount}だけを支払う",
+            "fixed_both": {
+                "prefix": "それぞれ",
+                "suffix": "だけを支払う"
+            }
         },
         "card_default_image_alt": "画像は近日公開予定"
     },
@@ -891,7 +901,7 @@
             "rating": {
                 "and-up": "& アップ"
             },
-            "label": "The following text field filters the results that follow as you type",
+            "label": "次のテキストフィールドは、入力に合わせて結果をフィルタリングします。",
             "toggleSection": "{title}フィルタ範囲を切り替え",
             "clear": "クリア",
             "more": "さらに",

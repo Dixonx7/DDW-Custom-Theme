@@ -59,7 +59,9 @@
             "shipping": "Frakt",
             "grand_total": "Totalsumma",
             "select": "Välj ",
-            "update": "Uppdatera fraktkostnad"
+            "update": "Uppdatera fraktkostnad",
+            "you_saved": "Du sparade",
+            "in_total": "totalt!"
         },
         "preview": {
             "checkout_now": "Till kassan",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] är inte en giltig post",
         "coupon_code": "Kupongkod",
         "discount": "Rabatt",
+        "discounts": "Rabatter",
+        "manual_discount": "Manuell rabatt",
+        "automatic_discount": "Automatisk rabatt",
         "included_in_total": " Ingår i totalt",
         "remove_file": "Ta bort den här filen",
         "freeshipping": "Gratis frakt",
@@ -80,6 +85,7 @@
         "confirm_delete": "Är du säker på att du vill ta bort det här temat?",
         "coupons": {
             "apply_coupon": "Tillämpa kupong",
+            "apply_coupon_code": "Tillämpa kupongkod",
             "empty_error": "Ange din kupongkod.",
             "cancel": "Annullera",
             "add_code": "Lägg till kod",
@@ -815,7 +821,11 @@
             "range": "Köp {min} {max, plural, =0{eller högre} other {- #}}",
             "percent": "och få {discount} rabatt",
             "price": "och få {discount} rabatt",
-            "fixed": "och betala endast {discount} vardera"
+            "fixed": "och betala endast {discount} vardera",
+            "fixed_both": {
+                "prefix": "och betala endast",
+                "suffix": "vardera"
+            }
         },
         "card_default_image_alt": "Bilden kommer snart"
     },

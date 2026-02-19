@@ -1,5 +1,5 @@
-import carousel from '../../theme/common/carousel';
 import $ from 'jquery';
+import carousel from '../../theme/common/carousel';
 import 'slick-carousel';
 
 describe('carousel', () => {

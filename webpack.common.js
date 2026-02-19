@@ -1,8 +1,9 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
-    { CleanWebpackPlugin } = require('clean-webpack-plugin'),
-    LodashPlugin = require('lodash-webpack-plugin'),
-    path = require('path'),
-    webpack = require('webpack');
+/* eslint-disable import/no-extraneous-dependencies */
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const LodashPlugin = require('lodash-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 // Common configuration, with extensions in webpack.dev.js and webpack.prod.js.
 module.exports = {

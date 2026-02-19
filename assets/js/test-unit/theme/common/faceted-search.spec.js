@@ -1,7 +1,7 @@
-import FacetedSearch from '../../../theme/common/faceted-search';
-import { Validators } from '../../../theme/common/utils/form-utils';
 import $ from 'jquery';
 import { hooks, api } from '@bigcommerce/stencil-utils';
+import FacetedSearch from '../../../theme/common/faceted-search';
+import { Validators } from '../../../theme/common/utils/form-utils';
 import urlUtils from '../../../theme/common/utils/url-utils';
 
 describe('FacetedSearch', () => {
@@ -37,34 +37,33 @@ describe('FacetedSearch', () => {
             },
         };
 
-        html =
-            '<div id="facetedSearch">' +
-                '<a class="facetedSearch-clearLink">Clear</a>' +
-                '<div id="facetedSearch-navList">' +
-                    '<ul class="navList" id="facet-brands" data-count="2" data-has-more-results="true">' +
-                        '<li><a href="?brand=item1">Facet Item 1</a></li>' +
-                        '<li><a href="?brand=item2">Facet Item 2</a></li>' +
-                        '<li><a href="?brand=item3">Facet Item 3</a></li>' +
-                        '<li><a href="?brand=item4">Facet Item 4</a></li>' +
-                    '</ul>' +
-                    '<form id="facet-sort">' +
-                        '<select name="sort">' +
-                            '<option value="featured">Featured</option>' +
-                            '<option value="newest">Newest</option>' +
-                        '</select>' +
-                    '</form>' +
-                    '<form id="facet-range-form">' +
-                        '<input name="min_price" value="0">' +
-                        '<input name="max_price" value="100">' +
-                    '</form>' +
-                    '<form id="facet-range-form-with-other-facets">' +
-                        '<input name="brand[]" value="item1">' +
-                        '<input name="brand[]" value="item2">' +
-                        '<input name="min_price" value="0">' +
-                        '<input name="max_price" value="50">' +
-                    '</form>' +
-                '</div>' +
-            '</div>';
+        html = '<div id="facetedSearch">'
+                + '<a class="facetedSearch-clearLink">Clear</a>'
+                + '<div id="facetedSearch-navList">'
+                    + '<ul class="navList" id="facet-brands" data-count="2" data-has-more-results="true">'
+                        + '<li><a href="?brand=item1">Facet Item 1</a></li>'
+                        + '<li><a href="?brand=item2">Facet Item 2</a></li>'
+                        + '<li><a href="?brand=item3">Facet Item 3</a></li>'
+                        + '<li><a href="?brand=item4">Facet Item 4</a></li>'
+                    + '</ul>'
+                    + '<form id="facet-sort">'
+                        + '<select name="sort">'
+                            + '<option value="featured">Featured</option>'
+                            + '<option value="newest">Newest</option>'
+                        + '</select>'
+                    + '</form>'
+                    + '<form id="facet-range-form">'
+                        + '<input name="min_price" value="0">'
+                        + '<input name="max_price" value="100">'
+                    + '</form>'
+                    + '<form id="facet-range-form-with-other-facets">'
+                        + '<input name="brand[]" value="item1">'
+                        + '<input name="brand[]" value="item2">'
+                        + '<input name="min_price" value="0">'
+                        + '<input name="max_price" value="50">'
+                    + '</form>'
+                + '</div>'
+            + '</div>';
 
         $element = $(html);
         $element.appendTo(document.body);
@@ -132,7 +131,7 @@ describe('FacetedSearch', () => {
         });
 
         it('should refresh view', () => {
-            jest.spyOn(api, 'getPage').mockImplementation((url, options, callback) => {
+            jest.spyOn(api, 'getPage').mockImplementation((_url, _options, callback) => {
                 callback(null, content);
             });
 
@@ -185,11 +184,7 @@ describe('FacetedSearch', () => {
     });
 
     describe('when location URL is changed', () => {
-        let href;
-
         beforeEach(() => {
-            href = document.location.href;
-
             jest.spyOn(facetedSearch, 'updateView').mockImplementation(() => {});
         });
 

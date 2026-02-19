@@ -112,7 +112,7 @@ export default class ShippingEstimator {
         let $last;
 
         // Requests the states for a country with AJAX
-        stateCountry(this.$state, this.context, { useIdForStates: true }, (err, field) => {
+        stateCountry(this.$state, this.context, { useIdForStates: true }, (err, field, isStateRequired) => {
             if (err) {
                 showAlertModal(err);
                 throw new Error(err);
@@ -120,7 +120,8 @@ export default class ShippingEstimator {
 
             const $field = $(field);
 
-            if (this.shippingValidator.getStatus(this.$state) !== 'undefined') {
+            if (this.$state.length > 0 && this.shippingValidator !== undefined) {
+                // remove existing validation first, it can be safely called on unregistered elements
                 this.shippingValidator.remove(this.$state);
             }
 
@@ -128,11 +129,13 @@ export default class ShippingEstimator {
                 this.shippingValidator.remove($last);
             }
 
-            if ($field.is('select')) {
+            if (isStateRequired) {
                 $last = field;
                 this.bindStateValidation();
             } else {
-                $field.attr('placeholder', 'State/province');
+                if (!$field.is('select')) {
+                    $field.attr('placeholder', 'State/province');
+                }
                 Validators.cleanUpStateValidation(field);
             }
 

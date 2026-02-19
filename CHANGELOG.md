@@ -5,12 +5,51 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Draft
+- Render native language names on storefront using Intl.DisplayNames [#2607](https://github.com/bigcommerce/cornerstone/pull/2607)
+- CUST-4055 Add backend-based static translations for account edit page form fields [#2606](https://github.com/bigcommerce/cornerstone/pull/2606)
+- Out of Stock banner is duplicated and overlaps Add to cart button on PDP [#2601](https://github.com/bigcommerce/cornerstone/pull/2601)
+- Fixed YouTube video playback in Safari by adding widget_referrer and origin parameters [#2598](https://github.com/bigcommerce/cornerstone/pull/2598)
+
+## 6.18.3 (01-21-2026)
+- Fixed an issue where bulk pricing on Product Details Page do not display both prices when tax display settings is set to `both including and excluding tax`.
+
+## 6.18.2 (01-08-2026)
+- Fixed validation removal on form fields [#2593](https://github.com/bigcommerce/cornerstone/pull/2593)
+**Note:** This version releases all changes from version 6.18.0.
+
+## 6.18.1 (01-05-2026)
+- CUST-4064 Fix state/zip validation error on country change and show state dropdown for optional-state countries [#2591](https://github.com/bigcommerce/cornerstone/pull/2591)
+
+## 6.18.0 (01-02-2026)
+- CUST-4064 Add dynamic postal code validation based on country requirements [#2585](https://github.com/bigcommerce/cornerstone/pull/2585)
+- Update Cornerstone documentation url [#2575](https://github.com/bigcommerce/cornerstone/pull/2575)
+- Fix keyboard navigation on the swatch options [#2576](https://github.com/bigcommerce/cornerstone/pull/2576)
+- CHECKOUT-9688 Introduce new coupon management section on cart page [#2578](https://github.com/bigcommerce/cornerstone/pull/2578)
+- CHECKOUT-9692 show the display name and coupon code under line item [#2579](https://github.com/bigcommerce/cornerstone/pull/2579)
+- Fix Cart Page not updating when adding product via Quick View [#2581](https://github.com/bigcommerce/cornerstone/pull/2581)
+- CHECKOUT-9690 Add new discounts section to display the order promotions and coupon discounts [#2582](https://github.com/bigcommerce/cornerstone/pull/2582)
+- CHECKOUT-9726 Seperate actionable links from price calculations and totals [#2584](https://github.com/bigcommerce/cornerstone/pull/2584)
+
+## 6.17.0 (10-01-2025)
+- Add net-new "order.pickup_addresses" to unify objects used on Order Details and Order Invoice pages [#2557](https://github.com/bigcommerce/cornerstone/pull/2557)
+- Removed banner widget configuration and related translations [#2561](https://github.com/bigcommerce/cornerstone/pull/2561)
+- Add support for shipping discounts in "order.total_rows" for use on the Order Details and Order Invoice pages [#2568](https://github.com/bigcommerce/cornerstone/pull/2568)
+- Updates eslint to v8 [#2570](https://github.com/bigcommerce/cornerstone/pull/2570)
+
+## 6.16.2 (06-18-2025)
+- Restore indentation and quote rules to match BC Sass Style Guide [#2554](https://github.com/bigcommerce/cornerstone/pull/2554)
+- Patch security vulnerabilities [#2548](https://github.com/bigcommerce/cornerstone/pull/2548)
+- Update code standards based on updated linter expectancies [#2548](https://github.com/bigcommerce/cornerstone/pull/2548)
+
+## 6.16.1 (02-14-2025)
 - Refactor cart, payment account page inline event handlers to event listeners [#2536](https://github.com/bigcommerce/cornerstone/pull/2536)
+- Cornerstone update to support multiple date fields and remove blank space [#2533](https://github.com/bigcommerce/cornerstone/pull/2533)
+- Updated check for showing/hiding available wallet buttons on PDP [#2532](https://github.com/bigcommerce/cornerstone/pull/2532)
 
 ## 6.16.0 (01-15-2025)
-- Remove escaping of "=" symbol for <head> for blog and brand [#2528](https://github.com/bigcommerce/cornerstone/pull/2528)
+- Remove escaping of "=" symbol for \<head\> for blog and brand [#2528](https://github.com/bigcommerce/cornerstone/pull/2528)
 - Add nonce to scripts in checkout and account pages [#2525](https://github.com/bigcommerce/cornerstone/pull/2525)
-- Remove escaping of "=" symbol for <head> [#2526](https://github.com/bigcommerce/cornerstone/pull/2526)
+- Remove escaping of "=" symbol for \<head\> [#2526](https://github.com/bigcommerce/cornerstone/pull/2526)
 - Add Karla 700 font weight to schema.json and remove italic versions [#2522](https://github.com/bigcommerce/cornerstone/pull/2522)
 - Fix product filter display name in Show More modal window [#2510](https://github.com/bigcommerce/cornerstone/pull/2510)
 - Fix colour value for carousel play-pause button [#2509](https://github.com/bigcommerce/cornerstone/pull/2509)
@@ -19,7 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support Stencil CLI's ESM migration. [#2500](https://github.com/bigcommerce/cornerstone/pull/2500)
 - Add missing icon for JCB card provider in the saved payment methods [#2489](https://github.com/bigcommerce/cornerstone/pull/2489)
 - Remove supporting Apple Pay button stylization [#2491](https://github.com/bigcommerce/cornerstone/pull/2491)
-- Updated check for showing/hiding available wallet buttons on PDP [#2532](https://github.com/bigcommerce/cornerstone/pull/2532)
 - Fix GH build action & added package version and short commit hash to artifact names in GitHub Actions workflow for improved traceability and uniqueness [#2494](https://github.com/bigcommerce/cornerstone/pull/2494)
 - Bump stencil-utils to 6.18.0 [#2493](https://github.com/bigcommerce/cornerstone/pull/2493)
 - Bump other GH actions to fix warnings related to old versions [#2495](https://github.com/bigcommerce/cornerstone/pull/2495)
@@ -28,7 +66,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use fetch when updating variants in cart [#2521](https://github.com/bigcommerce/cornerstone/pull/2521)
 - Add a region to display the payment promotion widget on the category pages [#2530](https://github.com/bigcommerce/cornerstone/pull/2530)
 - Rename the region to display the payment promotion widget on the category pages [#2531](https://github.com/bigcommerce/cornerstone/pull/2531)
-- Cornerstone update to support multiple date fields and remove blank space [#2533](https://github.com/bigcommerce/cornerstone/pull/2533)
 
 ## 6.15.0 (10-18-2024)
 - Cornerstone changes to support inc/ex tax price lists on PDP [#2486](https://github.com/bigcommerce/cornerstone/pull/2486)

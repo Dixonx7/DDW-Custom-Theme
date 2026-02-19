@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import utils from '@bigcommerce/stencil-utils';
-import Cart from '../../theme/cart.js';
+import Cart from '../../theme/cart';
 
 let dataSpy;
 let UpdateSpy;
@@ -13,8 +13,8 @@ beforeEach(() => {
     UpdateSpy = spyOn(utils.api.cart, 'itemUpdate');
 
     dataSpy = function (requestedAction = null) {
-        spyOn(jQuery.fn, 'data').and.callFake(function () {
-		    const param = arguments[0];
+        spyOn(jQuery.fn, 'data').and.callFake((...args) => {
+		    const param = args[0];
 		    switch (param) {
 		    case 'action':
 		    	return requestedAction;
@@ -96,7 +96,6 @@ c.onReady();
 
 describe('cartUpdate', () => {
     it('should INCRIMENT qty', () => {
-        dataSpy;
         dataSpy('inc');
         spyOn(jQuery.fn, 'val').and.returnValue(2);
         c.cartUpdate($dom);
@@ -105,7 +104,6 @@ describe('cartUpdate', () => {
     });
 
     it('should DECREMENT qty', () => {
-        dataSpy;
         dataSpy('dec');
         spyOn(jQuery.fn, 'val').and.returnValue(2);
         c.cartUpdate($dom);
@@ -116,7 +114,6 @@ describe('cartUpdate', () => {
 
 describe('cartUpdateQtyTextChange', () => {
     it('should CHANGE qty completly based on the cart-item-qty-input', () => {
-        dataSpy;
         dataSpy('manualQtyChange');
         spyOn(jQuery.fn, 'val').and.returnValue(5, 2);
         c.cartUpdateQtyTextChange($dom);

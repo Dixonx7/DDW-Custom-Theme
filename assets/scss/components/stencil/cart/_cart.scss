@@ -227,6 +227,9 @@ $card-preview-zoom-bottom-offset:       6rem;
         }
     }
 
+    .cart-item-backorder-message {
+        margin-bottom: 0;
+    }
 }
 
 .cart-item-label {
@@ -319,6 +322,7 @@ $card-preview-zoom-bottom-offset:       6rem;
 
     @include breakpoint("small") {
         float: right;
+        clear: both;
         width: grid-calc(9, $total-columns);
     }
 
@@ -413,6 +417,187 @@ $card-preview-zoom-bottom-offset:       6rem;
     }
 }
 
+.cart-total-enhanced {
+    .cart-total {
+        border-top: none;
+    }
+
+    .cart-total-label {
+        color: stencilColor("color-textBase");
+        text-align: left;
+        width: grid-calc(6, $total-columns);
+
+        @include breakpoint("medium") {
+            display: block;
+            padding-left: 0;
+            text-align: left;
+        }
+    }
+
+    .cart-total-value {
+        float: right;
+        font-weight: fontWeight("semibold");
+    }
+
+    .cart-total-label, .cart-total-value {
+        padding: spacing("third") 0;
+    }
+
+    .cart-total-with-savings {
+        border-top: container("border");
+        
+        .cart-total-label {
+            font-size: fontSize("larger");
+        }
+
+        .cart-total-grandTotal {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            font-weight: fontWeight("normal");
+
+            .cart-total-amount {
+                font-size: fontSize("larger");
+                font-weight: fontWeight("semibold");
+            }
+
+            .cart-total-savings {
+                font-family: $body-font-family;
+                font-size: fontSize("smaller");
+                font-weight: fontWeight("bold");
+                color: stencilColor("color-textSecondary");
+                display: block;
+                margin-top: spacing("eighth");
+            }
+
+            .cart-savings-amount {
+                color: stencilColor("color-success");
+            }
+        }
+    }
+
+    .cart-total-gift-certificate, .cart-total-shipping-estimator {
+        .cart-total-label {
+            display: flex;
+            gap: spacing("third");
+
+            a, button {
+                color: stencilColor("optimizedCheckout-link-color");
+                text-decoration: none;
+                font-weight: fontWeight("normal");
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .cart-total-shipping-estimator {
+        .shipping-estimate-value, .shipping-estimate-show {
+            text-decoration: none;
+            font-style: normal;
+        }
+
+        .price--discounted {
+            color: stencilColor("color-greyLight");
+        }
+    }
+
+    .cart-total-gift-certificate {
+        .cart-gift-certificate-form {
+            .button {
+                background-color: container("fill", "base");
+                color: stencilColor("color-textBase");
+                font-weight: fontWeight("bold");
+            }
+        }
+
+        
+        .gift-certificate-add, .gift-certificate-cancel {
+            color: stencilColor("optimizedCheckout-link-color");
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-weight: fontWeight("normal");
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .cart-total-gift-certificate-list-item {
+        .cart-total-label {
+            display: flex;
+            align-items: center;
+            gap: spacing("third");
+            color: stencilColor("color-textSecondary");
+            width: auto;
+            max-width: 80%;
+            flex-wrap: wrap;
+
+            .icon {
+                flex-shrink: 0;
+            }
+
+            a {
+                color: stencilColor("optimizedCheckout-link-color");
+                text-decoration: none;
+                font-weight: fontWeight("normal");
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .cart-total-value {
+            float: right;
+            width: auto;
+        }
+    }
+
+    .shipping-estimate-value, .shipping-estimate-show {
+        text-decoration: none;
+    }
+    
+    .cart-total-discounts {
+        .cart-total-label {
+            cursor: pointer;
+        }
+
+        .cart-discount-icon {
+            transition: transform 0.3s ease;
+            
+            &.is-open {
+                transform: rotate(180deg);
+            }
+
+            svg {
+                fill: stencilColor("color-textBase");
+            }
+        }
+
+        .cart-discount-list {
+            display: flex;
+            flex-direction: column;
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .cart-discount-item {
+            display: flex;
+            justify-content: space-between;
+            padding: spacing("eighth") 0;
+            color: stencilColor("color-textSecondary");
+
+            .cart-discount-item-label {
+                text-align: left;
+            }
+        }
+    }
+}
 
 // Cart actions
 // -----------------------------------------------------------------------------
@@ -430,6 +615,105 @@ $card-preview-zoom-bottom-offset:       6rem;
     &:hover {
         color: stencilColor("color-textSecondary--hover");
     }
+}
+
+// Cart coupons section
+.cart-coupons {
+    width: 100%;
+    padding-bottom: spacing("base");
+    border-bottom: container("border");
+    
+    @include breakpoint("small") {
+        float: right;
+        width: grid-calc(9, $total-columns);
+    }
+
+    @include breakpoint("medium") {
+        width: grid-calc(7, $total-columns);
+    }
+
+    @include breakpoint("large") {
+        width: grid-calc(5, $total-columns);
+    }
+
+    .coupon-form {
+        margin-top: spacing("base");
+
+        .button {
+            background-color: container("fill", "base");
+            color: stencilColor("color-textBase");
+            font-weight: fontWeight("bold");
+        }
+    }
+}
+
+.cart-coupon-link {
+    color: stencilColor("optimizedCheckout-link-color");
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    font-weight: fontWeight("normal");
+    
+    &:hover {
+        color: stencilColor("optimizedCheckout-link-color");
+        text-decoration: underline;
+    }
+}
+
+.coupon-code-form {
+    .form-input {
+        display: inline-block;
+        height: remCalc(32px);
+        padding: spacing("third");
+        vertical-align: top;
+        width: grid-calc(9, $total-columns);
+    }
+}
+
+.cart-coupon-display {
+    margin-top: spacing("base");
+}
+
+.cart-coupon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.cart-coupon-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid stencilColor("color-coupon-pill-border");
+    color: stencilColor("color-coupon-pill-text");
+    max-width: 100%;
+    border-radius: 3px;
+    background: stencilColor("color-coupon-pill-background");
+
+    svg {
+        fill: stencilColor("icon-color");
+    }
+
+    .cart-coupon-remove {
+        svg {
+            fill: stencilColor("icon-color");
+        }
+    }
+}
+
+.cart-item-discount, .cart-item-value.price--discounted {
+    color: stencilColor("color-greyLight");
+}
+
+.cart-coupon-name {
+    flex: 1;
+    margin-left: spacing("sixth");
 }
 
 .coupon-code-cancel,

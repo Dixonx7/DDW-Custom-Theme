@@ -1,5 +1,5 @@
 module.exports = {
-    process(src, filename) {
+    process(src) {
         return src.replace('exports.EventEmitter2 = EventEmitter;', 'module.exports = EventEmitter;');
     },
 };
